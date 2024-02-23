@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import returnTypeColors from "../utils/functions/returnTypeColors";
 
 export default function Notification({
   message = "Your message",
