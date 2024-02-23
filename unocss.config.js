@@ -1,4 +1,4 @@
-import { defineConfig } from "unocss";
+import { defineConfig, presetIcons, presetUno } from "unocss";
 import transformerDirectives from "@unocss/transformer-directives";
 
 export default defineConfig({
@@ -14,4 +14,5 @@ export default defineConfig({
     closeButton:
       "w-4 h-4 mx-3 items-center justify-center text-gray-400 dark:text-gray-200 hover:text-gray-900 rounded-md focus:ring-2 focus:ring-gray-300 inline-flex dark:hover:text-white",
   },
+  presets: [presetIcons(), presetUno()],
 });
