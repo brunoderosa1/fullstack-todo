@@ -1,29 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import returnTypeColors from "../utils/functions/returnTypeColors";
 
-export default function Notification({ message = 'Your message', type = 'info', render }) {
-  
-
+export default function Notification({
+  message = "Your message",
+  type = "info",
+  render,
+}) {
   const types = {
     sucess: {
-      color: "green",
+      color: "bg-green-200 border-green-600",
       icon: "i-mdi:check",
     },
     failure: {
-      color: "red",
+      color: "bg-red-200 border-red-600",
       icon: "i-mdi:exclamation",
     },
     info: {
-      color: "gray",
+      color: "bg-slate-200 border-slate-600",
       icon: "i-mdi:information",
     },
   };
 
+  const currentType = types[type];
+
   return (
     <>
-      <div className={'m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid border-green-600 fixed min-w-40 w-auto bg-green-200 rounded font-sans text-left right-5 bottom-5 '}>
-        <div className="i-mdi:ab-testing text-black "></div>
-        {message}
-        <div className="i-mdi:close justify-end hover:cursor-pointer"></div>
+      <div
+        className={
+          "m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid fixed min-w-60 w-auto rounded font-sans right-5 bottom-5 " +
+          currentType.color
+        }
+      >
+        <div className={`${currentType.icon} text-left `}></div>
+        <div>{message}</div>
+        <div className="i-mdi:close self-end hover:cursor-pointer"></div>
       </div>
     </>
   );
