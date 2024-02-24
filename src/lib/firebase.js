@@ -11,7 +11,7 @@ import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBExd7PiVYD_jGkpa1uweRB6EwEWZmbLvw",
+  apiKey: import.meta.env.VITE_GOOGLE_API_KEY || process.env.GOOGLE_API_KEY,
 
   authDomain: "sample-project-demo-414423.firebaseapp.com",
 
