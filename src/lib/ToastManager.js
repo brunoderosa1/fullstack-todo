@@ -50,4 +50,52 @@ class ToastManager {
   }
 }
 
-export default ToastManager;
+class ToastManager2 {
+  constructor() {
+    if (instance) {
+      return instance; // Return existing instance if already created
+    }
+    
+    instance = this;
+    this.queue = [];
+  }
+
+  enqueue(toast) {
+    if (!toast) { 
+      return;
+    }
+    if (typeof toast !== 'object') {
+      return
+    }
+    if (this.length === 2) {
+      return this.dequeue();
+    }
+
+    this.queue.push(toast);
+  }
+
+  dequeue() {
+    return this.queue.shift();
+  }
+
+  isEmpty() {
+    return this.queue.length === 0;
+  }
+
+  get length() {
+    return this.queue.length;
+  }
+
+  get queue() {
+    return this.queue;
+  }
+
+  static getInstance() {
+    if (!instance) {
+      instance = new ToastManager2();
+    }
+    return instance;
+  } 
+}
+
+export default ToastManager2;

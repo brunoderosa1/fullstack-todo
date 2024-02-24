@@ -1,69 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-// import './index.css'
-import "virtual:uno.css";
 import {
-  BrowserRouter,
-  RouterProvider,
-  createBrowserRouter,
+    BrowserRouter,
+    RouterProvider,
+    createBrowserRouter,
 } from "react-router-dom";
 
+import App from "./App.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import TodoPage from "./pages/TodoPage.jsx";
+import TodosListPage from "./pages/TodosListPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+
+// import './index.css'
+import "virtual:uno.css";
+
 const router = createBrowserRouter([
-  {
-    path: "/",
-    component: App,
-    children: [
-      {
+    {
         path: "/",
-        component: App,
-      },
-      {
-        path: "/about",
-        component: App,
-      },
-      {
-        path: "/contact",
-        component: App,
-      },
-    ],
-  },
-  {
-    path: "/todos",
-    component: App,
-    children: [
-      {
-        path: "/",
-        component: App,
-      },
-      {
-        path: "/about",
-        component: App,
-      },
-      {
-        path: "/contact",
-        component: App,
-      },
-    ],
-  },
-  {
-    path: "/auth",
-    component: App,
-    children: [
-      {
-        path: "/login",
-        component: App,
-      },
-      {
-        path: "/register",
-        component: App,
-      }
-    ]  
-  }
+        element: <TodosListPage />,
+        errorElement: <NotFoundPage />,
+    },
+    {
+        path: "/todo/:todoId",
+        element: <TodoPage />,
+        children: [
+            {
+                path: ":id",
+                element: <TodoPage />,
+            },
+        ],
+    },
+    {
+        path: "/auth",
+        element: App,
+        children: [
+            {
+                path: "login",
+                element: <LoginPage />,
+            },
+            {
+                path: "register",
+                element: <RegisterPage />,
+            },
+        ],
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
 );

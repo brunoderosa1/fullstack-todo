@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";}
 
 export default function NavBar() {
 
@@ -15,15 +16,15 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="flex flex-row items-center ">
+      <header className="flex flex-row items-center ">
         {buttons.map(button => {
-            <div>
+          <Link to={button.to}>
             <div className={`${button.icon}`} /> {button.label}
-          </div>
+          </Link>
         })}
         
         <div className="" ></div>
-      </div>
+      </header>
     </>
   );
 }

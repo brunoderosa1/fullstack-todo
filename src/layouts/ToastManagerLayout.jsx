@@ -5,7 +5,6 @@ import Notification from "../components/Notification";
 export default function ToastManagerLayout({ children }) {
 
   const toastManager = ToastManager.getInstance();
-  console.log("🚀 ~ ToastManagerLayout ~ toastManager:", toastManager)
 
   return (
     <>
