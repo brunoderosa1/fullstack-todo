@@ -26,13 +26,13 @@ export default function Notification({
     <>
       <div
         className={
-          "m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid fixed min-w-60 w-auto rounded font-sans right-5 bottom-5 " +
+          "m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid min-w-60 w-auto rounded font-sans " +
           currentType.color
         }
       >
         <div className={`${currentType.icon} text-left `}></div>
         <div>{message}</div>
-        <div className="i-mdi:close self-end hover:cursor-pointer"></div>
+        <div className="i-mdi:close justify-end hover:cursor-pointer"></div>
       </div>
     </>
   );

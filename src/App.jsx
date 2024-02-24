@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import Notification from './components/Notification'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// // import './App.css'
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-
   return (
     <>
-      <Notification />
+      <Routes>
+        <Route path="/" element={<div>Home</div>} />
+        <Route path="/about" element={<div>About</div>} />
+        <Route path="/contact" element={<div>Contact</div>} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
