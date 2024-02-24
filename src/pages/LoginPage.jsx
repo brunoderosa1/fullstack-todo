@@ -4,7 +4,7 @@ import AuthLayout from "../layouts/AuthLayout";
 export default function LoginPage() {
     return (
         <>
-            <AuthLayout>lib</AuthLayout>
+            <AuthLayout>login</AuthLayout>
         </>
     );
 }
