@@ -23,7 +23,7 @@ export default function NavBar() {
           </Link>
         })}
         
-        <div className="" ></div>
+        <div className="i-mdi:logout" >Logout</div>
       </header>
     </>
   );
