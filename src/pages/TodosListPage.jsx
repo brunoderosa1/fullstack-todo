@@ -1,11 +1,8 @@
-import React from 'react'
-import useToast from '../hooks/useToast'
+import React from "react";
+import useToast from "../features/toast/hooks/useToast";
 
 export default function TodosListPage() {
+    const { getQueue, setToast } = useToast();
 
-  const { getQueue, setToast } = useToast();
-  
-  return (
-    <div>Todos</div>
-  )
+    return <div>Todos</div>;
 }
