@@ -1,14 +1,18 @@
 import React from "react";
-import ToastManager from "../lib/ToastManager";
-import Notification from "../components/Notification";
 
-export default function ToastManagerLayout({ children }) {
+import { Outlet } from "react-router-dom";
+import useToast from "../features/toast/hooks/useToast";
+import ToastDisplay from "../features/toast/components/ToastDisplay";
 
-  const toastManager = ToastManager.getInstance();
+export default function ToastManagerLayout() {
+    const { getQueue, setToast } = useToast();
 
-  return (
-    <>
-      <div className="fixed bottom-5 right-5" >{  }</div>
-    </>
-  );
+    return (
+        <>
+            <main className="w-100vw h-100vh bg-gray-400 flex flex-col items-center justify-center m-0">
+                <Outlet className="self-center " />
+                <ToastDisplay className="bg-green-200 w-40 h-40" />
+            </main>
+        </>
+    );
 }

@@ -3,10 +3,9 @@ import React, { useState } from "react";
 export default function Toast({
   message = "Your message",
   type = "info",
-  render,
 }) {
   const types = {
-    sucess: {
+    success: {
       color: "bg-green-200 border-green-600",
       icon: "i-mdi:check",
     },
@@ -22,11 +21,13 @@ export default function Toast({
 
   const currentType = types[type];
 
+  const [isVisible, setIsVisible] = useState(true);
+
   return (
     <>
       <div
         className={
-          "m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid min-w-60 w-auto rounded font-sans " +
+          `m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid min-w-60 w-auto rounded font-sans ${isVisible ? 'ease-in' : 'ease-out' } ` +
           currentType.color
         }
       >

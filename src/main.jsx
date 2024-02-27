@@ -10,43 +10,47 @@ import App from "./App.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import TodoPage from "./pages/TodoPage.jsx";
-import TodosListPage from "./pages/TodosListPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
-// import './index.css'
 import "virtual:uno.css";
+import ToastManagerLayout from "./layouts/ToastManagerLayout.jsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <TodosListPage />,
+        element: <ToastManagerLayout />,
         errorElement: <NotFoundPage />,
-    },
-    {
-        path: "/todo/:todoId",
-        element: <TodoPage />,
         children: [
             {
-                path: ":id",
+                path: "/",
+                element: <App />,
+            },
+            {
+                path: "/todo",
                 element: <TodoPage />,
             },
+            {
+                path: "/auth",
+                element: App,
+                children: [
+                    {
+                        path: "login",
+                        element: <LoginPage />,
+                    },
+                    {
+                        path: "register",
+                        element: <RegisterPage />,
+                    },
+                ],
+            },
         ],
     },
     {
-        path: "/auth",
-        element: App,
-        children: [
-            {
-                path: "login",
-                element: <LoginPage />,
-            },
-            {
-                path: "register",
-                element: <RegisterPage />,
-            },
-        ],
+        path: "/*",
+        element: <NotFoundPage />,
     },
 ]);
+
+document.getElementsByTagName("body").item(0).setAttribute("class", "w-100vw h-100vh m-0");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
