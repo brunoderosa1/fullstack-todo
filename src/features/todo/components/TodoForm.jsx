@@ -23,6 +23,7 @@ export default function TodoForm() {
 
         if (!hasErrors) {
             // TODO: Add to database
+            console.log("Add to database");
             setTitle("");
             setDescription("");
             setErrors([]);
@@ -47,6 +48,9 @@ export default function TodoForm() {
             onChange: (e) => {
                 setDescription(e.target.value);
             },
+            pattern: "^[A-Za-z0-9]{0,60}$",
+            class: "peer",
+            errorMessage: "Maximum characters exceeded.",
         },
     ];
 
@@ -69,15 +73,23 @@ export default function TodoForm() {
                                 {input.title}
                             </label>
                             <input
-                                className="appearance-none w-full leading-tight box-border py-2 px-3 mx-1 border border-solid border-gray-400 rounded "
+                                className={
+                                    "appearance-none w-full leading-tight box-border py-2 px-3 mx-1 border border-solid border-gray-400 rounded invalid:border-red-500 valid:border-green-500" +
+                                    input?.class
+                                }
                                 type="text"
                                 name={input.name}
                                 id={input.name}
                                 placeholder={input.placeholder}
                                 required
-                                value={title}
-                                onChange={input.onChange}
+                                value={input.value}
+                                pattern={input?.pattern}
+                                onChange={(e) => input.onChange(e)}
                             />
+
+                            <span className="text-red-500 font-semibold self-start hidden peer-invalid:block">
+                                {input?.errorMessage}
+                            </span>
                         </div>
                     );
                 })}
