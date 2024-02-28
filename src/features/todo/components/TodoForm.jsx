@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function TodoForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
     const [errors, setErrors] = useState([]);
+
+    const { edit } = useParams();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -39,6 +42,7 @@ export default function TodoForm() {
             onChange: (e) => {
                 setTitle(e.target.value);
             },
+            pattern: "^.{1,60}$",
         },
         {
             title: "Description:",
@@ -48,9 +52,12 @@ export default function TodoForm() {
             onChange: (e) => {
                 setDescription(e.target.value);
             },
-            pattern: "^[A-Za-z0-9]{0,60}$",
-            class: "peer",
-            errorMessage: "Maximum characters exceeded.",
+            pattern: "^.{1,255}$",
+            peer: "peer/description",
+            peerClass:
+                "peer-placeholder-shown/description:hidden peer-valid/description:hidden peer-invalid/description:block",
+            errorMessage:
+                "Must be populated with equal or less than 255 characters.",
         },
     ];
 
@@ -60,6 +67,9 @@ export default function TodoForm() {
                 className="flex flex-col justify-center gap-2 w-108 p-8 font-sans text-left bg-gray-300 rounded"
                 onSubmit={onSubmit}
             >
+                <h1 className="font-bold text-2xl">
+                    {edit ? "Edit Todo" : "Add Todo"}
+                </h1>
                 {inputs.map((input, index) => {
                     return (
                         <div
@@ -74,8 +84,8 @@ export default function TodoForm() {
                             </label>
                             <input
                                 className={
-                                    "appearance-none w-full leading-tight box-border py-2 px-3 mx-1 border border-solid border-gray-400 rounded invalid:border-red-500 valid:border-green-500" +
-                                    input?.class
+                                    "appearance-none w-full leading-tight box-border py-2 px-3 mx-1 border-2 border-solid border-gray-400 rounded invalid:border-red-500 valid:border-green-500 " +
+                                    input?.peer
                                 }
                                 type="text"
                                 name={input.name}
@@ -87,7 +97,12 @@ export default function TodoForm() {
                                 onChange={(e) => input.onChange(e)}
                             />
 
-                            <span className="text-red-500 font-semibold self-start hidden peer-invalid:block">
+                            <span
+                                className={
+                                    "text-red-500 font-semibold mt-1 self-start " +
+                                    input?.peerClass
+                                }
+                            >
                                 {input?.errorMessage}
                             </span>
                         </div>
