@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
-    BrowserRouter,
     RouterProvider,
     createBrowserRouter,
 } from "react-router-dom";
@@ -14,6 +13,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 import "virtual:uno.css";
 import ToastManagerLayout from "./layouts/ToastManagerLayout.jsx";
+import TodoForm from "./features/todo/components/TodoForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +25,11 @@ const router = createBrowserRouter([
                 element: <App />,
             },
             {
-                path: "/todo",
+                path: "/todo/new",
+                element: <TodoForm />,
+            },
+            {
+                path: "/todo/:id",
                 element: <TodoPage />,
             },
             {

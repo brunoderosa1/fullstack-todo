@@ -8,10 +8,14 @@ export default function TodosList() {
 
     return (
         <>
-            <div className="flex flex-col w-80 h-auto rounded justify-center items-center bg-gray-200">
-                <div className="flex flex-row justify-between items-center p-4 h-10 w-80% mx-6 font-sans">
+            <div className="flex flex-col w-108 h-auto rounded justify-center items-center bg-gray-200">
+                <div className="flex flex-row justify-between items-center px-4 py-2 h-10 w-full mx-6 font-sans">
                     <h1>Todos</h1>
-                    <Link className="button size-10 i-mdi:plus cursor-pointer" onClick={() => console.log('click')} to={'todo'}></Link>
+                    <Link
+                        className="button size-10 i-mdi:plus cursor-pointer"
+                        onClick={() => console.log("click")}
+                        to={"/todo/new"}
+                    ></Link>
                 </div>
                 {todos.map((todo) => (
                     <Todo

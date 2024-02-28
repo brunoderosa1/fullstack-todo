@@ -10,18 +10,18 @@ class ToastManager {
     }
 
     enqueue(toast) {
-      this.queue.push(toast);
-      setInterval(() => {
-        if (this.queue.length > 0) {
-            const indexOfToast = this.queue.indexOf(toast);
-            this.queue.splice(indexOfToast, 1);
-          }
-      }, toast?.duration ?? 500);
-      if (this.queue.length > 2) this.queue.shift();
+        this.queue.push(toast);
+        setInterval(() => {
+            if (this.queue.length > 0) {
+                const indexOfToast = this.queue.indexOf(toast);
+                this.queue.splice(indexOfToast, 1);
+            }
+        }, toast?.duration ?? 500);
+        if (this.queue.length > 2) this.queue.shift();
     }
 
     getQueue() {
-      return this.queue;
+        return this.queue;
     }
 }
 

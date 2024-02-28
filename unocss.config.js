@@ -5,7 +5,7 @@ export default defineConfig({
     // ...UnoCSS options
     transformers: [transformerDirectives()],
     shortcuts: {
-        button: "rounded-md border-solid border border-gray-600 px-4 py-2 text-lg font-medium text-white bg-gray-800 hover:border-gray-700 font-sans font-bold",
+        button: "rounded-md border-solid border border-gray-600 px-4 py-2 text-lg font-medium text-white bg-gray-800 hover:border-gray-700 font-sans font-bold cursor-pointer",
         info: "bg-blue-100 dark:bg-blue-800 dark:text-blue-100",
         success: "bg-green-100 dark:bg-green-800 dark:text-green-100",
         warning: "bg-orange-100 dark:bg-orange-800 dark:text-orange-100",
