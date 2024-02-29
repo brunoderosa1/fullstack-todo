@@ -1,11 +1,9 @@
 import React from "react";
 
 import { Outlet } from "react-router-dom";
-import useToast from "../features/toast/hooks/useToast";
 import ToastDisplay from "../features/toast/components/ToastDisplay";
 
 export default function ToastManagerLayout() {
-    const { getQueue, setToast } = useToast();
 
     return (
         <>

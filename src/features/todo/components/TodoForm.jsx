@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Form from "../../../components/Form";
 
 export default function TodoForm() {
     const [title, setTitle] = useState("");
@@ -48,6 +49,7 @@ export default function TodoForm() {
             name: "title",
             placeholder: "Title",
             value: title,
+            required: true,
             onChange: (e) => {
                 setTitle(e.target.value);
             },
@@ -58,6 +60,7 @@ export default function TodoForm() {
             name: "description",
             placeholder: "Description",
             value: description,
+            required: true,
             onChange: (e) => {
                 setDescription(e.target.value);
             },
@@ -72,7 +75,7 @@ export default function TodoForm() {
 
     return (
         <>
-            <form
+            {/* <form
                 className="flex flex-col justify-center gap-2 w-108 p-8 font-sans text-left bg-gray-300 rounded"
                 onSubmit={onSubmit}
             >
@@ -125,7 +128,14 @@ export default function TodoForm() {
                 >
                     {edit ? "Edit" : "Add"}
                 </button>
-            </form>
+            </form> */}
+            <Form 
+                formTitle={edit ? "Edit Todo" : "Add Todo"} 
+                onSubmit={onSubmit}
+                submitBtnLabel={edit ? "Edit" : "Add"}
+                inputs={inputs}
+                disableSubmit={!title || !description}
+            />
         </>
     );
 }

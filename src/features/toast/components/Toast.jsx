@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 
+/**
+ * The function `Toast` is a React component that displays a message with a specified type (success,
+ * failure, or info) in a styled toast notification with an icon and close button.
+ * @returns The `Toast` component is being returned. It is a functional component that displays a toast
+ * message with a specific type (success, failure, or info) and a corresponding icon and color based on
+ * the type. The toast message can be customized by passing the `message` and `type` props to the
+ * component. The toast message will be displayed with an animation when it appears and disappears.
+ */
 export default function Toast({ message = "Your message", type = "info" }) {
     const types = {
         success: {
@@ -21,10 +29,8 @@ export default function Toast({ message = "Your message", type = "info" }) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-      return (
-        setIsVisible(false)
-      )
-    }, [])
+        return setIsVisible(false);
+    }, []);
 
     return (
         <>

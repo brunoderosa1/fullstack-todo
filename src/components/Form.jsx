@@ -9,9 +9,13 @@ import React from "react";
  * `submitBtnLabel` prop. The `onSubmit` function is called when the form is submitted.
  */
 
-export default function Form({ formTitle, onSubmit, submitBtnLabel, inputs, disableSubmit }) {
-    
-
+export default function Form({
+    formTitle,
+    onSubmit,
+    submitBtnLabel,
+    inputs,
+    disableSubmit,
+}) {
     return (
         <>
             <form
@@ -57,7 +61,7 @@ export default function Form({ formTitle, onSubmit, submitBtnLabel, inputs, disa
                     );
                 })}
                 <button
-                    className="button disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-400"
+                    className="button disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-400 mt-5"
                     type="submit"
                     disabled={disableSubmit}
                 >

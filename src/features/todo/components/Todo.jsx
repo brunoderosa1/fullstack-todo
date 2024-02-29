@@ -1,5 +1,12 @@
 import React from "react";
 
+/**
+ * This function is a React component for displaying a todo item with a title, description, and
+ * edit/delete icons.
+ * @returns The function `Todo` is returning a JSX element that represents a todo item. It includes a
+ * div with a border, rounded corners, and padding, containing the title and description of the todo
+ * item. Additionally, there are two icons displayed in a row below the description.
+ */
 export default function Todo({ title = "Title", description = "Description" }) {
     {
         return (

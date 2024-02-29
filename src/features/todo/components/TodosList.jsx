@@ -3,6 +3,12 @@ import useTodo from "../hooks/useTodo";
 import Todo from "./Todo";
 import { Link } from "react-router-dom";
 
+/**
+ * The TodosList component renders a list of todos with a title and a button to add a new todo.
+ * @returns The `TodosList` component is being returned. It renders a list of todos fetched using the
+ * `useTodo` hook. The component displays a title "Todos" and a button to add a new todo. It then maps
+ * over the `todos` array and renders a `Todo` component for each todo item.
+ */
 export default function TodosList() {
   const { todos } = useTodo();
 
