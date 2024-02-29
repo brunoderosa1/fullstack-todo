@@ -12,6 +12,7 @@ export default defineConfig({
         error: "bg-red-100 dark:bg-red-700 dark:text-red-100",
         closeButton:
             "w-4 h-4 mx-3 items-center justify-center text-gray-400 dark:text-gray-200 hover:text-gray-900 rounded-md focus:ring-2 focus:ring-gray-300 inline-flex dark:hover:text-white",
+        main: "w-100vw h-100vh bg-gray-400 flex flex-col items-center justify-center m-0",
     },
     presets: [presetIcons(), presetUno()],
 });

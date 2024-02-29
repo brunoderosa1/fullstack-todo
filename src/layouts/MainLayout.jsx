@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MainLayout({ children }) {
+export default function MainLayout() {
   return (
     <>
       <div>TodoLayout</div>;

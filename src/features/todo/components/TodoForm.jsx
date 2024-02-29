@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function TodoForm() {
@@ -7,7 +7,16 @@ export default function TodoForm() {
 
     const [errors, setErrors] = useState([]);
 
-    const { edit } = useParams();
+    const { edit, id } = useParams();
+
+    useEffect(() => {
+        if (edit) {
+            // TODO: Get from database
+            console.log("Get from database");
+            setTitle("Title");
+            setDescription("Description");
+        }
+    }, [edit, id])
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -110,10 +119,11 @@ export default function TodoForm() {
                 })}
                 <p className="font-semibold">Max length: 255 characters.</p>
                 <button
-                    className="button "
+                    className="button disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-400"
                     type="submit"
+                    disabled={!title || !description}
                 >
-                    Add
+                    {edit ? "Edit" : "Add"}
                 </button>
             </form>
         </>
