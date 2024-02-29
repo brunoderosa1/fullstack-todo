@@ -9,10 +9,6 @@ component, it is using the `useToast` custom hook to get access to the `getQueue
 export default function ToastDisplay() {
     const { queue } = useToast();
 
-    useEffect(() => {
-        console.log("ToastDisplay ~ getQueue:", queue);
-    }, [queue]);
-
     return (
         <>
             <div className="w-auto z-10 fixed bottom-5 right-5">

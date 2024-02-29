@@ -32,16 +32,18 @@ export default function Toast({ toast }) {
     const currentType = types[type];
 
     const [visible, setVisible] = useState(true);
+    const [exit, setExit] = useState(false);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
+            setTimeout(() => setExit[true], duration - 600);
             setVisible(false);
             removeToast(toast);
-        }, duration); // Unmount after 2 seconds
+        }, duration); 
 
         return () => {
             clearTimeout(timeoutId);
-        }; // Cleanup function to clear timeout
+        };
     }, [toast]);
 
     return (
@@ -49,10 +51,9 @@ export default function Toast({ toast }) {
             <>
                 <div
                     className={
-                        `m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animate-duration-200 ${
-                            visible ? "ease-in " : "ease-out "
-                        } ` + currentType.color
+                        `m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animated animated-duration-200 ${ !exit ? 'animated-fade-in' : 'animated-fade-out-up' } ` + currentType.color
                     }
+                    id='toast'
                 >
                     <div className={`${currentType.icon} text-left `}></div>
                     <div>{message}</div>

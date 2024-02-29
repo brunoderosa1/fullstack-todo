@@ -1,5 +1,6 @@
 import { defineConfig, presetIcons, presetUno } from "unocss";
 import transformerDirectives from "@unocss/transformer-directives";
+import { animatedUno } from 'animated-unocss'
 
 export default defineConfig({
     // ...UnoCSS options
@@ -14,5 +15,6 @@ export default defineConfig({
             "w-4 h-4 mx-3 items-center justify-center text-gray-400 dark:text-gray-200 hover:text-gray-900 rounded-md focus:ring-2 focus:ring-gray-300 inline-flex dark:hover:text-white",
         main: "w-100vw h-100vh bg-gray-400 flex flex-col items-center justify-center m-0",
     },
-    presets: [presetIcons(), presetUno()],
+    safelist: ["animated-fade-in", "animated-fade-out-up"],
+    presets: [presetIcons(), presetUno(), animatedUno()],
 });

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Form from "../../../components/Form";
-import {useAuth} from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import useToast from "../../toast/hooks/useToast";
 
 export default function AuthForm({ isSignUp }) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
 
     const label = isSignUp ? "Sign Up" : "Sign In";
 
-    const { useLogin } = useAuth()
+    const { useLogin } = useAuth();
 
-    const { addToast } = useToast()
+    const { addToast } = useToast();
 
     const inputs = [
         {
@@ -26,7 +25,7 @@ export default function AuthForm({ isSignUp }) {
             },
             type: "email",
             required: true,
-            pattern: "^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$",
+            pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
             peer: "peer/email",
             peerClass:
                 "peer-placeholder-shown/email:hidden peer-valid/email:hidden peer-invalid/email:block",
@@ -66,8 +65,11 @@ export default function AuthForm({ isSignUp }) {
         }
 
         if (!hasErrors) {
-            addToast({message: "Pepito...", type: "success",  duration: 3000})
-            console.log("Add to database");
+            addToast({
+                message: "Logging in...",
+                type: "success",
+                duration: 1500,
+            });
             setEmail("");
             setPassword("");
             setErrors([]);
