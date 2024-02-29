@@ -21,7 +21,7 @@ export const useAuth = () => {
         return unsubscribe;
     }, []);
 
-    const login = async (email, password) => {
+    const useLogin = async (email, password) => {
         const [data, error] = await TryCatch(async () => {
             return await signInWithEmailAndPassword(email, password);
         });
@@ -29,7 +29,7 @@ export const useAuth = () => {
         return [data, error];
     };
 
-    const logout = async () => {
+    const useLogout = async () => {
         const [data, error] = await TryCatch(async () => {
             return await signOut(auth);
         });
@@ -37,5 +37,5 @@ export const useAuth = () => {
         return [data, error];
     };
 
-    return { currentUser, loading, login, logout };
+    return { currentUser, loading, useLogin, useLogout };
 }
