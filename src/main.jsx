@@ -13,6 +13,7 @@ import ToastManagerLayout from "./layouts/ToastManagerLayout.jsx";
 import TodoForm from "./features/todo/components/TodoForm.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 import AuthGuard from "./features/auth/components/AuthGuard.jsx";
+import MainLayout from "./layouts/MainLayout.jsx";
 
 const router = createBrowserRouter([
     {
@@ -44,16 +45,21 @@ const router = createBrowserRouter([
                 errorElement: <NotFoundPage />,
                 children: [
                     {
-                        path: "/",
-                        element: <App />,
-                    },
-                    {
-                        path: "/todo/new",
-                        element: <TodoForm />,
-                    },
-                    {
-                        path: "/todo/:id",
-                        element: <TodoPage />,
+                        element: <MainLayout />,
+                        children: [
+                            {
+                                path: "/",
+                                element: <App />,
+                            },
+                            {
+                                path: "/todo/new",
+                                element: <TodoForm />,
+                            },
+                            {
+                                path: "/todo/:id",
+                                element: <TodoPage />,
+                            },
+                        ],
                     },
                 ],
             },

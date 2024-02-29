@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Form from "../../../components/Form";
 
-export default function AuthForm({ props }) {
-
-    const { isSignUp } = props;
+export default function AuthForm({ isSignUp }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
