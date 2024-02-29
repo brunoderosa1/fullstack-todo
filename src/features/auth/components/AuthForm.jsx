@@ -68,7 +68,7 @@ export default function AuthForm({ isSignUp }) {
             addToast({
                 message: "Logging in...",
                 type: "success",
-                duration: 1500,
+                duration: 3000,
             });
             setEmail("");
             setPassword("");

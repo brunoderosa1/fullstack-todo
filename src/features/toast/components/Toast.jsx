@@ -14,6 +14,10 @@ export default function Toast({ toast }) {
 
     const { removeToast } = useToast();
 
+    const creationTimestamp = Date.now();
+
+    useEffect(() => {}, []);
+
     const types = {
         success: {
             color: "bg-green-200 border-green-600",
@@ -32,16 +36,21 @@ export default function Toast({ toast }) {
     const currentType = types[type];
 
     const [visible, setVisible] = useState(true);
-    const [exit, setExit] = useState(false);
 
     useEffect(() => {
+        const toastEl = document.getElementById(`${creationTimestamp}`);
+
         const timeoutId = setTimeout(() => {
-            setTimeout(() => setExit[true], duration - 600);
             setVisible(false);
             removeToast(toast);
-        }, duration); 
+        }, duration);
 
         return () => {
+            setTimeout(() => {
+                toastEl.classList.remove("animated-fade-in");
+                toastEl.classList.add("animated-fade-out");
+            }, toast.duration - 100);
+
             clearTimeout(timeoutId);
         };
     }, [toast]);
@@ -51,9 +60,10 @@ export default function Toast({ toast }) {
             <>
                 <div
                     className={
-                        `m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animated animated-duration-200 ${ !exit ? 'animated-fade-in' : 'animated-fade-out-up' } ` + currentType.color
+                        ` m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animated animated-duration-100 animated-fade-in  ` +
+                        currentType.color
                     }
-                    id='toast'
+                    id={creationTimestamp}
                 >
                     <div className={`${currentType.icon} text-left `}></div>
                     <div>{message}</div>
