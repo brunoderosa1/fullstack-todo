@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import  getAllTodos from "../services/getAllTodos";
 import  deleteTodo from "../services/deleteTodo";
 import  updateTodo from '../services/updateTodo'
-import  addTodo from "../services/addTodo";
+import  createTodo from "../services/createTodo";
 import useToast from '../../../features/toast/hooks/useToast'
 
 /**
@@ -34,13 +34,13 @@ export default function useTodo() {
     }, [error, setToast]);
 
     /**
-     * The `addTodoFn` function asynchronously adds a new todo item to a list of todos and handles any
+     * The `createTodoFn` function asynchronously adds a new todo item to a list of todos and handles any
      * errors that may occur.
-     * @param todo - The `todo` parameter in the `addTodo` function represents the new todo item that
+     * @param todo - The `todo` parameter in the `createTodo` function represents the new todo item that
      * you want to add to the list of todos.
      */
-    const addTodoFn = async (todo) => {
-        const [data, error] = await addTodo(todo);
+    const createTodoFn = async (todo) => {
+        const [data, error] = await createTodo(todo);
         if (data) setTodos([...todos, data]);
         if (error) setError(error);
     };
@@ -84,7 +84,7 @@ export default function useTodo() {
         todos,
         loading,
         error,
-        addTodoFn,
+        createTodoFn,
         deleteTodoFn,
         updateTodoFn,
     };

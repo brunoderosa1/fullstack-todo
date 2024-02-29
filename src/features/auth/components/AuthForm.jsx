@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Form from "../../../components/Form";
+import {useAuth} from "../hooks/useAuth";
+import useToast from "../../toast/hooks/useToast";
 
 export default function AuthForm({ isSignUp }) {
 
@@ -8,6 +10,10 @@ export default function AuthForm({ isSignUp }) {
     const [errors, setErrors] = useState("");
 
     const label = isSignUp ? "Sign Up" : "Sign In";
+
+    const { useLogin } = useAuth()
+
+    const { addToast } = useToast()
 
     const inputs = [
         {
@@ -60,7 +66,7 @@ export default function AuthForm({ isSignUp }) {
         }
 
         if (!hasErrors) {
-            // TODO: Add to database
+            addToast({message: "Pepito...", type: "success",  duration: 3000})
             console.log("Add to database");
             setEmail("");
             setPassword("");

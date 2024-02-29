@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useToast from "../hooks/useToast";
 
 /**
  * The function `Toast` is a React component that displays a message with a specified type (success,
@@ -8,7 +9,11 @@ import React, { useEffect, useState } from "react";
  * the type. The toast message can be customized by passing the `message` and `type` props to the
  * component. The toast message will be displayed with an animation when it appears and disappears.
  */
-export default function Toast({ message = "Your message", type = "info" }) {
+export default function Toast({ toast }) {
+    const { message = "Your message", type = "info", duration = 2000 } = toast;
+
+    const { removeToast } = useToast();
+
     const types = {
         success: {
             color: "bg-green-200 border-green-600",
@@ -26,25 +31,34 @@ export default function Toast({ message = "Your message", type = "info" }) {
 
     const currentType = types[type];
 
-    const [isVisible, setIsVisible] = useState(true);
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
-        return setIsVisible(false);
-    }, []);
+        const timeoutId = setTimeout(() => {
+            setVisible(false);
+            removeToast(toast);
+        }, duration); // Unmount after 2 seconds
+
+        return () => {
+            clearTimeout(timeoutId);
+        }; // Cleanup function to clear timeout
+    }, [toast]);
 
     return (
-        <>
-            <div
-                className={
-                    `m-2 p-4 border-2 flex flex-row items-center gap-2 border-solid min-w-60 w-auto rounded font-sans ${
-                        isVisible ? "ease-in" : "ease-out"
-                    } ` + currentType.color
-                }
-            >
-                <div className={`${currentType.icon} text-left `}></div>
-                <div>{message}</div>
-                <div className="i-mdi:close justify-end hover:cursor-pointer"></div>
-            </div>
-        </>
+        visible && (
+            <>
+                <div
+                    className={
+                        `m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animate-duration-200 ${
+                            visible ? "ease-in " : "ease-out "
+                        } ` + currentType.color
+                    }
+                >
+                    <div className={`${currentType.icon} text-left `}></div>
+                    <div>{message}</div>
+                    <div className="i-mdi:close justify-end hover:cursor-pointer"></div>
+                </div>
+            </>
+        )
     );
 }

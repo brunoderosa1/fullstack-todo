@@ -6,9 +6,9 @@ export default function AuthGuard() {
     const { currentUser } = useAuth();
     console.log("AuthGuard ~ currentUser:", currentUser);
 
-    // if (!currentUser) {
-    //     return <Navigate to="/auth/login" />;
-    // }
+    if (!currentUser) {
+        return <Navigate to="/auth/login" />;
+    }
 
     return (
         <>
