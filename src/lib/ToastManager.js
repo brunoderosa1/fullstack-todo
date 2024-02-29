@@ -1,5 +1,7 @@
 let instance;
 
+/* The `ToastManager` class manages a queue of toast messages, ensuring a maximum length of 2 and
+removing messages after a specified duration. */
 class ToastManager {
     constructor() {
         if (instance) {
@@ -9,6 +11,14 @@ class ToastManager {
         this.queue = [];
     }
 
+    /**
+     * The `enqueue` function adds a toast message to a queue, removes it after a specified duration,
+     * and ensures the queue length does not exceed 2.
+     * @param toast - The `toast` parameter in the `enqueue` function represents a message or
+     * notification that is added to a queue. It seems like the `enqueue` function is designed to add a
+     * `toast` to the queue, remove it after a certain duration, and ensure that the queue does not
+     * exceed a length
+     */
     enqueue(toast) {
         this.queue.push(toast);
         setInterval(() => {
