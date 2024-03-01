@@ -1,50 +1,78 @@
 import { useState, useEffect } from "react";
 import {
+    browserLocalPersistence,
+    createUserWithEmailAndPassword,
     onAuthStateChanged,
+    setPersistence,
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import {useNavigate} from 'react-router-dom'
 
 import { auth } from "../../../lib/firebase.js";
 import { TryCatch } from "../../../utils/functions/TryCatch.js";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(
+        Object.keys(window.localStorage).filter((item) =>
+            item.startsWith("firebase:authUser")
+        )[0]
+    );
+    const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurrentUser(user);
-            setLoading(false);
-        });
+    const navigate = useNavigate();
 
-        return unsubscribe;
-    }, []);
+    const login = async (email, password) => {
+        setLoading(true);
 
-    const useLogin = async (email, password) => {
         const [data, error] = await TryCatch(async () => {
-            return await signInWithEmailAndPassword(email, password);
+            await setPersistence(auth, browserLocalPersistence);
+            return await signInWithEmailAndPassword(auth, email, password);
         });
-        useNavigate('/')
+
+        setLoading(false);
+        navigate("/");
         return [data, error];
     };
 
-    const useSignup = async (email, password) => {
+    const signUp = async (email, password) => {
+        setLoading(true);
         const [data, error] = await TryCatch(async () => {
-            return await signInWithEmailAndPassword(email, password);
+            return await createUserWithEmailAndPassword(auth, email, password);
         });
-        useNavigate('/')
+
+        setLoading(false);
+        navigate("/auth/login");
         return [data, error];
     };
 
-    const useLogout = async () => {
+    const logout = async () => {
+        setLoading(true);
         const [data, error] = await TryCatch(async () => {
             return await signOut(auth);
         });
 
+        setLoading(false);
+        navigate("/auth/login");
         return [data, error];
     };
 
-    return { currentUser, loading, useLogin, useLogout, useSignup };
-}
+    const getCurrentUser = () => {
+        return currentUser;
+    };
+
+    const getAuthToken = () => {
+        return currentUser;
+    };
+
+    return {
+        currentUser,
+        loading,
+        login,
+        logout,
+        signUp,
+        getCurrentUser,
+        getAuthToken,
+    };
+};

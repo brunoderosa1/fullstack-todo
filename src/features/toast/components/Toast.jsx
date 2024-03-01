@@ -23,7 +23,7 @@ export default function Toast({ toast }) {
             color: "bg-green-200 border-green-600",
             icon: "i-mdi:check",
         },
-        failure: {
+        error: {
             color: "bg-red-200 border-red-600",
             icon: "i-mdi:exclamation",
         },

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Form from "../../../components/Form";
 import { useAuth } from "../hooks/useAuth";
 import useToast from "../../toast/hooks/useToast";
@@ -10,9 +12,11 @@ export default function AuthForm({ isSignUp }) {
 
     const label = isSignUp ? "Sign Up" : "Sign In";
 
-    const { useLogin } = useAuth();
+    const { login, signUp } = useAuth();
 
     const { addToast } = useToast();
+
+    const navigate = useNavigate();
 
     const inputs = [
         {
@@ -25,7 +29,7 @@ export default function AuthForm({ isSignUp }) {
             },
             type: "email",
             required: true,
-            pattern: "^[w-.]+@([w-]+.)+[w-]{2,4}$",
+            pattern: "/^[w-.]+@([w-]+.)+[w-]{2,4}$/",
             peer: "peer/email",
             peerClass:
                 "peer-placeholder-shown/email:hidden peer-valid/email:hidden peer-invalid/email:block",
@@ -64,15 +68,50 @@ export default function AuthForm({ isSignUp }) {
             hasErrors = true;
         }
 
-        if (!hasErrors) {
-            addToast({
-                message: "Logging in...",
-                type: "success",
-                duration: 3000,
-            });
-            setEmail("");
-            setPassword("");
-            setErrors([]);
+        if (!hasErrors && isSignUp) {
+            const [data, error] = await signUp(email, password);
+            if (error) {
+                addToast({
+                    message: "Registration failed.",
+                    type: "error",
+                    duration: 3000,
+                });
+            }
+            if (data) {
+                addToast({
+                    message: "Signed up successfully!",
+                    type: "success",
+                    duration: 3000,
+                });
+                setEmail("");
+                setPassword("");
+                setErrors([]);
+                navigate("/auth/login");
+            }
+        }
+
+        if (!hasErrors && !isSignUp) {
+            const [data, error] = await login(email, password);
+            if (error) {
+                console.log("onSubmit ~ error:", error);
+                addToast({
+                    message: "Login failed.",
+                    type: "error",
+                    duration: 3000,
+                });
+            }
+            if (data) {
+                console.log("onSubmit ~ data:", data);
+                addToast({
+                    message: "Logged in successfully!",
+                    type: "success",
+                    duration: 3000,
+                });
+                setEmail("");
+                setPassword("");
+                setErrors([]);
+                navigate("/");
+            }
         }
     };
 
