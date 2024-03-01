@@ -93,7 +93,6 @@ export default function AuthForm({ isSignUp }) {
         if (!hasErrors && !isSignUp) {
             const [data, error] = await login(email, password);
             if (error) {
-                console.log("onSubmit ~ error:", error);
                 addToast({
                     message: "Login failed.",
                     type: "error",
@@ -101,7 +100,6 @@ export default function AuthForm({ isSignUp }) {
                 });
             }
             if (data) {
-                console.log("onSubmit ~ data:", data);
                 addToast({
                     message: "Logged in successfully!",
                     type: "success",

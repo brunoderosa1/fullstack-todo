@@ -4,7 +4,6 @@ import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 export default function AuthGuard() {
     const { getCurrentUser, getAuthToken } = useAuth();
-    console.log("AuthGuard ~ currentUser:", getAuthToken());
 
     const navigate = useNavigate();
 

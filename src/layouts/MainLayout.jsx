@@ -3,14 +3,14 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "../features/auth/hooks/useAuth";
 
 export default function MainLayout() {
-    const { currentUser, useLogout } = useAuth();
+    const { getCurrentUser, logout } = useAuth();
 
     return (
         <>
-            {currentUser && (
+            {getCurrentUser() && (
                 <button
                     className="button fixed right-5 top-5"
-                    onClick={useLogout}
+                    onClick={logout}
                 >
                     Logout
                 </button>

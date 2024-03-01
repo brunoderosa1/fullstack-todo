@@ -19,7 +19,6 @@ export default function TodosList() {
                     <h1>Todos</h1>
                     <Link
                         className="button size-10 i-mdi:plus cursor-pointer"
-                        onClick={() => console.log("click")}
                         to={"/todo/new"}
                     ></Link>
                 </div>
