@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Form from "../../../components/Form";
 import { useAuth } from "../hooks/useAuth";
-import useToast from "../../toast/hooks/useToast";
 
 export default function AuthForm({ isSignUp }) {
     const [email, setEmail] = useState("");
@@ -13,10 +11,6 @@ export default function AuthForm({ isSignUp }) {
     const label = isSignUp ? "Sign Up" : "Sign In";
 
     const { login, signUp } = useAuth();
-
-    const { addToast } = useToast();
-
-    const navigate = useNavigate();
 
     const inputs = [
         {
@@ -69,24 +63,13 @@ export default function AuthForm({ isSignUp }) {
         }
 
         if (!hasErrors && isSignUp) {
-            const [data, error] = await signUp(email, password);
-            
-            setEmail("");
-            setPassword("");
-            setErrors([]);
-
-            if (error) {
-                console.log("onSubmit ~ error:", error);
-            }
-            
-            if (data) {
-                navigate("/auth/login");
-            }
+            const data = await signUp(email, password);
         }
 
         if (!hasErrors && !isSignUp) {
             const data = await login(email, password);
         }
+
         setEmail("");
         setPassword("");
         setErrors([]);

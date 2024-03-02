@@ -52,7 +52,6 @@ export const useAuth = () => {
         }).finally(() => {
             setLoading(false);
         })
-        
         return ;
     };
 
