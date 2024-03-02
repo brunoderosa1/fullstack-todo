@@ -29,7 +29,7 @@ export default function AuthForm({ isSignUp }) {
             },
             type: "email",
             required: true,
-            pattern: "/^[w-.]+@([w-]+.)+[w-]{2,4}$/",
+            // pattern: "^[w-.]+@([w-]+).+[w-]{2,4}$",
             peer: "peer/email",
             peerClass:
                 "peer-placeholder-shown/email:hidden peer-valid/email:hidden peer-invalid/email:block",
@@ -86,7 +86,7 @@ export default function AuthForm({ isSignUp }) {
 
         if (!hasErrors && !isSignUp) {
             const [data, error] = await login(email, password);
-            await addToast("Logged in successfully!", "success", 3000);
+            addToast("Logged in successfully!", "success", 3000);
 
             if (data) {
                 setEmail("");
