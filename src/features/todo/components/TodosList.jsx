@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 export default function TodosList() {
     const { todos, getAllTodosFn, loading } = useTodo();
 
-    useEffect(() => {  
-        getAllTodosFn();
-    }, []);
+    // useEffect(() => {  
+    //     getAllTodosFn();
+    // }, []);
 
     return (
         <>
@@ -27,7 +27,7 @@ export default function TodosList() {
                     ></Link>
                 </div>
                 <hr className="w-full mx-6" />
-                {todos.length ? (
+                {[].length ? (
                     todos.map((todo) => (
                         <Todo
                             key={todo.id}

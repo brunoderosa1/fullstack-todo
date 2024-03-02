@@ -1,102 +1,18 @@
-import { useState } from "react";
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    getIdToken
-} from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-import { auth } from "../../../lib/firebase.js";
-import useToast from "../../../features/toast/hooks/useToast.js";
+import { AuthContext } from "../context/AuthContext.jsx";
 
-export default const useAuth = () => {
-    const [currentUser, setCurrentUser] = useState(
-        JSON.parse(
-            localStorage.getItem(
-                Object.keys(window.localStorage).filter((item) =>
-                    item.startsWith("firebase:authUser")
-                )[0]
-            )
-        ) ?? null
-    );
+export default function useAuth() {
 
-    // const [token, setToken] = useState(null)
-
-    const [loading, setLoading] = useState(false);
-
-    const { addToast } = useToast();
-
-    const navigate = useNavigate();
-
-    const login = async (email, password) => {
-        setLoading(true);
-
-        signInWithEmailAndPassword(auth, email, password)
-            .then((credential) => {
-                const userCredential = credential;
-                setCurrentUser(userCredential);
-                addToast("Logged in successfully!", "success", 3000);
-                navigate("/");
-            })
-            .catch((error) => {
-                addToast("Login failed.", "error", 3000);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-        return;
-    };
-
-    const signUp = async (email, password) => {
-        setLoading(true);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((credential) => {
-                const userCredential = credential;
-                setCurrentUser(userCredential);
-                addToast("Signed up successfully!", "success", 3000);
-                navigate("/");
-            })
-            .catch((error) => {
-                addToast("Registration failed.", "error", 3000);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-        return;
-    };
-
-    const logout = async () => {
-        setLoading(true);
-        signOut(auth)
-            .then(() => {
-                setCurrentUser(null);
-                addToast("Logged out successfully!", "success", 3000);
-            })
-            .catch((error) => {
-                addToast("Logout failed.", "error", 3000);
-            })
-            .finally(() => {
-                setLoading(false);
-                navigate("/auth/login");
-            });
-        return;
-    };
-
-    const getCurrentUser = () => {
-        return currentUser;
-    };
-
-    const getAuthToken = async () => {
-        let authToken; 
-        auth.currentUser?.getIdToken( true)
-            .then((token) => (authToken = token))
-            .catch((error) => {
-                console.log(error);
-            });
-        
-        return authToken;
-    };
+    const {
+        currentUser,
+        loading,
+        login,
+        logout,
+        signUp,
+        getCurrentUser,
+        getAuthToken,
+    } = useContext(AuthContext);
 
     return {
         currentUser,
@@ -107,4 +23,4 @@ export default const useAuth = () => {
         getCurrentUser,
         getAuthToken,
     };
-};
+}

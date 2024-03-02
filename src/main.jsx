@@ -2,19 +2,21 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import "virtual:uno.css";
 import App from "./App.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import TodoPage from "./pages/TodoPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 
-import "virtual:uno.css";
 import ToastManagerLayout from "./layouts/ToastManagerLayout.jsx";
 import TodoForm from "./features/todo/components/TodoForm.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 import AuthGuard from "./features/auth/components/AuthGuard.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import { ToastProvider } from "./features/toast/context/ToastContext.jsx";
+import { TodosProvider } from "./features/todo/context/TodosContext.jsx";
+import { AuthProvider } from "./features/auth/context/AuthContext.jsx";
 
 const router = createBrowserRouter([
     {
@@ -66,21 +68,6 @@ const router = createBrowserRouter([
             },
         ],
     },
-
-    // {
-    //     path: "/auth",
-    //     element: <AuthLayout />,
-    //     children: [
-    //         {
-    //             path: "login",
-    //             element: <LoginPage />,
-    //         },
-    //         {
-    //             path: "register",
-    //             element: <RegisterPage />,
-    //         },
-    //     ],
-    // },
     {
         path: "/*",
         element: <NotFoundPage />,
@@ -95,7 +82,11 @@ document
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <ToastProvider>
-            <RouterProvider router={router} />
+            <AuthProvider>
+                <TodosProvider>
+                    <RouterProvider router={router} />
+                </TodosProvider>
+            </AuthProvider>
         </ToastProvider>
     </React.StrictMode>
 );

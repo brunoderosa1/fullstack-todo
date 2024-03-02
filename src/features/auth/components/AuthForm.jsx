@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Form from "../../../components/Form";
 import useAuth from "../hooks/useAuth";
@@ -11,6 +12,8 @@ export default function AuthForm({ isSignUp }) {
     const label = isSignUp ? "Sign Up" : "Sign In";
 
     const { login, signUp } = useAuth();
+
+    const navigate = useNavigate();
 
     const inputs = [
         {
@@ -64,10 +67,13 @@ export default function AuthForm({ isSignUp }) {
 
         if (!hasErrors && isSignUp) {
             const data = await signUp(email, password);
+            navigate("/");
         }
 
         if (!hasErrors && !isSignUp) {
             const data = await login(email, password);
+            console.log("onSubmit ~ data:", data);
+            navigate("/");
         }
 
         setEmail("");
