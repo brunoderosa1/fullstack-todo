@@ -48,8 +48,8 @@ export default function Toast({ toast }) {
         return () => {
             setTimeout(() => {
                 toastEl.classList.remove("animated-fade-in");
-                toastEl.classList.add("animated-fade-out");
-            }, toast.duration - 100);
+                toastEl.classList.add("animated-fade-out-right");
+            }, toast.duration - 200);
 
             clearTimeout(timeoutId);
         };
@@ -60,7 +60,7 @@ export default function Toast({ toast }) {
             <>
                 <div
                     className={
-                        ` m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animated animated-duration-100 animated-fade-in  ` +
+                        ` m-2 p-4 border-2 flex flex-row justify-between items-center gap-2 border-solid min-w-60 w-auto rounded font-sans animated animated-duration-200 animated-fade-in  ` +
                         currentType.color
                     }
                     id={creationTimestamp}

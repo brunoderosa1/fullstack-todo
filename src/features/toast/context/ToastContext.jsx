@@ -1,28 +1,29 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useRef } from "react";
 
 export const ToastContext = createContext({
-  queue: [],
-  addToast: () => {},
-  removeToast: () => {},
+    queue: [],
+    addToast: () => {},
+    removeToast: () => {},
 });
 
 export const ToastProvider = ({ children }) => {
-  const [queue, setQueue] = useState([]);
 
-  const addToast = (toast) => {
-    const newQueue = [...queue, toast];
-    setQueue(newQueue);
-  };
+    const [queue, setQueue] = useState([]);
+    const queueRef = useRef(queue);
+    queueRef.current = queue;
 
-  const removeToast = (toast) => {
-    const updatedQueue = queue.filter((t) => t !== toast);
-    setQueue(updatedQueue);
-  };
+    const addToast = (message, type, duration) => {
+        const toast = { message, type, duration };
+        setQueue(prevQueue => [...prevQueue, toast]);
+    };
 
-  const value = { queue, addToast, removeToast };
+    const removeToast = (toast) => {
+        setQueue(prevQueue => prevQueue.filter((t) => t !== toast));
+    };
 
-  return (
-    <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
-  );
+    const value = { queue, addToast, removeToast };
+
+    return (
+        <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
+    );
 };
-

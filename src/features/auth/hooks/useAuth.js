@@ -7,19 +7,26 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../../lib/firebase.js";
 import { TryCatch } from "../../../utils/functions/TryCatch.js";
-import { useNavigate } from "react-router-dom";
+// import useToast from "../../../features/toast/hooks/useToast.js";
 
 export const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(
-        Object.keys(window.localStorage).filter((item) =>
-            item.startsWith("firebase:authUser")
-        )[0]
+        localStorage.getItem(
+            Object.keys(window.localStorage).filter((item) =>
+                item.startsWith("firebase:authUser")
+            )[0]
+        ) ?? null
     );
+
     const [token, setToken] = useState(null);
+
     const [loading, setLoading] = useState(true);
+
+    // const { addToast } = useToast();
 
     const navigate = useNavigate();
 
@@ -31,8 +38,21 @@ export const useAuth = () => {
             return await signInWithEmailAndPassword(auth, email, password);
         });
 
+        if (error) {
+            // addToast({
+            //     message: "Login failed.",
+            //     type: "error",
+            //     duration: 3000,
+            // });
+        }
+        if (Object.entries(data).length) {
+            console.log("entro");
+            // addToast("Logged in successfully!", "success", 3000);
+            navigate("/");
+        }
+
         setLoading(false);
-        navigate("/");
+
         return [data, error];
     };
 
@@ -41,9 +61,24 @@ export const useAuth = () => {
         const [data, error] = await TryCatch(async () => {
             return await createUserWithEmailAndPassword(auth, email, password);
         });
+        if (data) {
+            // addToast({
+            //     message: "Signed up successfully!",
+            //     type: "success",
+            //     duration: 3000,
+            // });
+            navigate("/auth/login");
+        }
+        if (error) {
+            // addToast({
+            //     message: "Registration failed.",
+            //     type: "error",
+            //     duration: 3000,
+            // });
+        }
 
         setLoading(false);
-        navigate("/auth/login");
+
         return [data, error];
     };
 
@@ -63,7 +98,7 @@ export const useAuth = () => {
     };
 
     const getAuthToken = () => {
-        return currentUser;
+        return currentUser?.stsTokenManager.accessToken;
     };
 
     return {

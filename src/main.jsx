@@ -14,6 +14,7 @@ import TodoForm from "./features/todo/components/TodoForm.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 import AuthGuard from "./features/auth/components/AuthGuard.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
+import { ToastProvider } from "./features/toast/context/ToastContext.jsx";
 
 const router = createBrowserRouter([
     {
@@ -93,6 +94,8 @@ document
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <ToastProvider>
+            <RouterProvider router={router} />
+        </ToastProvider>
     </React.StrictMode>
 );

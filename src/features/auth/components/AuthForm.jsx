@@ -70,45 +70,28 @@ export default function AuthForm({ isSignUp }) {
 
         if (!hasErrors && isSignUp) {
             const [data, error] = await signUp(email, password);
+            
+            setEmail("");
+            setPassword("");
+            setErrors([]);
+
             if (error) {
-                addToast({
-                    message: "Registration failed.",
-                    type: "error",
-                    duration: 3000,
-                });
+                console.log("onSubmit ~ error:", error);
             }
+            
             if (data) {
-                addToast({
-                    message: "Signed up successfully!",
-                    type: "success",
-                    duration: 3000,
-                });
-                setEmail("");
-                setPassword("");
-                setErrors([]);
                 navigate("/auth/login");
             }
         }
 
         if (!hasErrors && !isSignUp) {
             const [data, error] = await login(email, password);
-            if (error) {
-                addToast({
-                    message: "Login failed.",
-                    type: "error",
-                    duration: 3000,
-                });
-            }
+            await addToast("Logged in successfully!", "success", 3000);
+
             if (data) {
-                addToast({
-                    message: "Logged in successfully!",
-                    type: "success",
-                    duration: 3000,
-                });
                 setEmail("");
                 setPassword("");
                 setErrors([]);
-                navigate("/");
             }
         }
     };

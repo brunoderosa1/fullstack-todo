@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Toast from "./Toast";
 import useToast from "../hooks/useToast";
@@ -8,6 +8,12 @@ component, it is using the `useToast` custom hook to get access to the `getQueue
 `getQueue` function is then called to retrieve an array of toast messages. */
 export default function ToastDisplay() {
     const { queue } = useToast();
+
+    const [usableQueue, setUsableQueue] = useState([]);
+    
+    useEffect(() => {
+        setUsableQueue(queue);
+    }, [queue]);
 
     return (
         <>
