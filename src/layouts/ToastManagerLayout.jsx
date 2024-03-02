@@ -7,14 +7,14 @@ import { useAuth } from "../features/auth/hooks/useAuth";
 
 export default function ToastManagerLayout() {
 
-    const { loading: authLoading } = useAuth();
+    const { loading } = useAuth();
 
     return (
         <>
             <main className="w-100vw h-100vh bg-gray-400 flex flex-col items-center justify-center m-0">
                 <Outlet className="self-center " />
                 <ToastDisplay className="bg-green-200 w-40 h-40" />
-                { authLoading && <Loader /> }
+                { loading && <Loader /> }
             </main>
         </>
     );

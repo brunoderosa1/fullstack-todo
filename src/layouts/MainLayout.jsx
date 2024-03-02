@@ -9,7 +9,7 @@ export default function MainLayout() {
         <>
             {getCurrentUser() && (
                 <button
-                    className="button fixed right-5 top-5"
+                    className="button fixed right-5 top-5 stdAnimation"
                     onClick={logout}
                 >
                     Logout

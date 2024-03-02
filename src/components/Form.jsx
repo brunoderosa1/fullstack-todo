@@ -19,7 +19,7 @@ export default function Form({
     return (
         <>
             <form
-                className="flex flex-col justify-center gap-2 w-108 p-8 font-sans text-left bg-gray-300 rounded"
+                className="flex flex-col justify-center gap-2 w-108 p-8 font-sans text-left bg-gray-300 rounded stdAnimation"
                 onSubmit={onSubmit}
             >
                 <h1 className="font-bold text-2xl">{formTitle}</h1>
