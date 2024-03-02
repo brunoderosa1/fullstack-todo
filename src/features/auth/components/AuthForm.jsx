@@ -85,15 +85,11 @@ export default function AuthForm({ isSignUp }) {
         }
 
         if (!hasErrors && !isSignUp) {
-            const [data, error] = await login(email, password);
-            addToast("Logged in successfully!", "success", 3000);
-
-            if (data) {
-                setEmail("");
-                setPassword("");
-                setErrors([]);
-            }
+            const data = await login(email, password);
         }
+        setEmail("");
+        setPassword("");
+        setErrors([]);
     };
 
     return (

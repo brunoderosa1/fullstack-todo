@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-    browserLocalPersistence,
     createUserWithEmailAndPassword,
-    onAuthStateChanged,
-    setPersistence,
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../../lib/firebase.js";
-import { TryCatch } from "../../../utils/functions/TryCatch.js";
-// import useToast from "../../../features/toast/hooks/useToast.js";
+import useToast from "../../../features/toast/hooks/useToast.js";
 
 export const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(
@@ -22,75 +18,56 @@ export const useAuth = () => {
         ) ?? null
     );
 
-    const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(true);
-
-    // const { addToast } = useToast();
+    const { addToast } = useToast();
 
     const navigate = useNavigate();
 
     const login = async (email, password) => {
         setLoading(true);
 
-        const [data, error] = await TryCatch(async () => {
-            await setPersistence(auth, browserLocalPersistence);
-            return await signInWithEmailAndPassword(auth, email, password);
-        });
-
-        if (error) {
-            // addToast({
-            //     message: "Login failed.",
-            //     type: "error",
-            //     duration: 3000,
-            // });
-        }
-        if (Object.entries(data).length) {
-            console.log("entro");
-            // addToast("Logged in successfully!", "success", 3000);
+        signInWithEmailAndPassword(auth,email,password).then((credential) =>{
+            const userCredential = credential
+            setCurrentUser(userCredential);
+            addToast("Logged in successfully!","success",3000);
             navigate("/");
-        }
-
-        setLoading(false);
-
-        return [data, error];
+        }).catch((error) => {
+            addToast("Login failed.","error", 3000);
+        }).finally(() => {
+            setLoading(false);
+        });
+        return
     };
 
     const signUp = async (email, password) => {
         setLoading(true);
-        const [data, error] = await TryCatch(async () => {
-            return await createUserWithEmailAndPassword(auth, email, password);
-        });
-        if (data) {
-            // addToast({
-            //     message: "Signed up successfully!",
-            //     type: "success",
-            //     duration: 3000,
-            // });
-            navigate("/auth/login");
-        }
-        if (error) {
-            // addToast({
-            //     message: "Registration failed.",
-            //     type: "error",
-            //     duration: 3000,
-            // });
-        }
-
-        setLoading(false);
-
-        return [data, error];
+        createUserWithEmailAndPassword(auth, email, password).then((credential) =>{
+            const userCredential = credential
+            setCurrentUser(userCredential);
+            addToast("Signed up successfully!","success",3000);
+            navigate("/");
+        }).catch((error) => {
+            addToast("Registration failed.","error", 3000);;
+        }).finally(() => {
+            setLoading(false);
+        })
+        
+        return ;
     };
 
     const logout = async () => {
         setLoading(true);
-        const [data, error] = await TryCatch(async () => {
-            return await signOut(auth);
-        });
-
-        setLoading(false);
-        navigate("/auth/login");
-        return [data, error];
+        signOut(auth).then(() => {
+            setCurrentUser(null);
+            addToast("Logged out successfully!","success",3000);
+        }).catch((error) => {
+            addToast("Logout failed.","error", 3000);
+        }).finally(() => {
+            setLoading(false);
+            navigate("/auth/login");
+        })
+        return;
     };
 
     const getCurrentUser = () => {
