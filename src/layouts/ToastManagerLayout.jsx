@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Loader from "../components/Loader";
 import ToastDisplay from "../features/toast/components/ToastDisplay";
-import { useAuth } from "../features/auth/hooks/useAuth";
+import useAuth from "../features/auth/hooks/useAuth";
 
 export default function ToastManagerLayout() {
 

@@ -10,14 +10,15 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
  * created todo object if the operation is successful, or `null` if there is an error. The second
  * element is an error object if there is an error, or `null` if the operation is successful.
  */
-export default async function createTodo(todo) {
+export default async function createTodo(token, todo) {
+    console.log("todo:", todo);
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
-        return await fetch(import.meta.BACKEND_URL || process.env.BACKEND_URL + "/api/todos", {
+        return await fetch("http://localhost:3000" + "/todos/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(todo),
         });

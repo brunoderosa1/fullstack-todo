@@ -47,8 +47,8 @@ export default function Toast({ toast }) {
 
         return () => {
             setTimeout(() => {
-                toastEl.classList.remove("animated-fade-in");
-                toastEl.classList.add("animated-fade-out-right");
+                toastEl?.classList.remove("animated-fade-in");
+                toastEl?.classList.add("animated-fade-out-right");
             }, toast.duration - 200);
 
             clearTimeout(timeoutId);

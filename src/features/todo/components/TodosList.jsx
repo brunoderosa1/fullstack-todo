@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useTodo from "../hooks/useTodo";
 import Todo from "./Todo";
 import { Link } from "react-router-dom";
@@ -10,7 +10,11 @@ import { Link } from "react-router-dom";
  * over the `todos` array and renders a `Todo` component for each todo item.
  */
 export default function TodosList() {
-    const { todos } = useTodo();
+    const { todos, getAllTodosFn, loading } = useTodo();
+
+    useEffect(() => {  
+        getAllTodosFn();
+    }, []);
 
     return (
         <>

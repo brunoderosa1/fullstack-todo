@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Form from "../../../components/Form";
+import useTodo from "../../../features/todo/hooks/useTodo";
+import useToast from "../../../features/toast/hooks/useToast";
 
 export default function TodoForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
     const [errors, setErrors] = useState([]);
+
+    const { createTodoFn } = useTodo();
+    const { addToast } = useToast();
 
     const { edit, id } = useParams();
 
@@ -35,8 +40,9 @@ export default function TodoForm() {
         }
 
         if (!hasErrors) {
-            // TODO: Add to database
-            console.log("Add to database");
+            const [data, error] = await createTodoFn({ title, description });
+            if (data) addToast("Todo created successfully", "success", 3000);
+            if (error) addToast(error.message, "error", 3000);
             setTitle("");
             setDescription("");
             setErrors([]);

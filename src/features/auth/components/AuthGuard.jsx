@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useAuth } from "../hooks/useAuth";
 import { Outlet, useNavigate } from "react-router-dom";
+
+import useAuth from "../hooks/useAuth";
 
 export default function AuthGuard() {
     const { getCurrentUser } = useAuth();

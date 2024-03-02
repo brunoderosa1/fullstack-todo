@@ -10,14 +10,14 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
  * updated todo object if the update was successful, or `null` if there was an error. The second
  * element is an error object if there was an error, or `null` if the update was successful.
  */
-export default async function updateTodo(todo) {
+export default async function updateTodo(token, todo) {
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
         return await fetch(import.meta.BACKEND_URL || process.env.BACKEND_URL + "/api/todos/" + todo.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(todo),
         });

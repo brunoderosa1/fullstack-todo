@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { useAuth } from "../features/auth/hooks/useAuth";
+import useAuth from "../features/auth/hooks/useAuth";
 
 export default function MainLayout() {
     const { getCurrentUser, logout } = useAuth();

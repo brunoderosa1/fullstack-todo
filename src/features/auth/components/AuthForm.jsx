@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Form from "../../../components/Form";
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 export default function AuthForm({ isSignUp }) {
     const [email, setEmail] = useState("");

@@ -10,14 +10,15 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
  * deleted todo object if the deletion was successful, or `null` if there was an error. The second
  * element is an error object if there was an error, or `null` if the deletion was successful.
  */
-export default async function deleteTodo(id) {
+export default async function deleteTodo(token, id) {
+
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
-        return await fetch(import.meta.BACKEND_URL || process.env.BACKEND_URL + "/api/todos/" + id, {
+        return await fetch("http://localhost:3000" + "/todos/" + id, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                Authorization: `Bearer ${token}`,
             },
         });
     });
