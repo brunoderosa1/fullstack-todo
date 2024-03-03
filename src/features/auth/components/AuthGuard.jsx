@@ -4,12 +4,13 @@ import { Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function AuthGuard() {
-    const { user, loading } = useAuth();
+    const { user, token, loading, getAuthToken } = useAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user) {
+        if (!user || !token) {
+            getAuthToken();
             return navigate("/auth/login");
         }
     }, []);

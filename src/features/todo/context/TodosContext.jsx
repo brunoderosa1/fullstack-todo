@@ -23,30 +23,53 @@ export const TodosProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const { token } = useAuth();
+    const { token, getAuthToken } = useAuth();
+    const { addToast } = useToast();
+
+    useEffect(() => {
+        console.log(todos);
+    }, [todos]);
+
+    const handleToken = () => {
+        if (!token) {
+            getAuthToken();
+            addToast("Request couldn't be made please retry.", "info", 3000);
+        }
+    };
 
     const getAllTodosFn = async () => {
+        setLoading(true);
+        handleToken();
         const [data, error] = await getAllTodos(token);
-        if (data) setTodos(data);
+        if (data.length) setTodos(data);
         if (error) setError(error);
+        setLoading(false);
     };
 
     const createTodoFn = async (todo) => {
+        setLoading(true);
+        handleToken();
         const [data, error] = await TryCatch(createTodo(token, todo));
-        if (data) setTodos([...todos, data]);
+        if (data.length) setTodos([...todos, data]);
         if (error) setError(error);
+        setLoading(false);
     };
 
     const deleteTodoFn = async (id) => {
+        setLoading(true);
+        handleToken();
         const [data, error] = await deleteTodo(token, id);
-        if (data) setTodos(todos.filter((todo) => todo.id !== id));
+        if (data.length) setTodos(todos.filter((todo) => todo.id !== id));
         if (error) setError(error);
+        setLoading(false);
     };
 
     const updateTodoFn = async (id, updatedTodo) => {
+        setLoading(true);
+        handleToken();
         const [data, error] = await updateTodo(token, updatedTodo);
         if (error) setError(error);
-        if (data)
+        if (data.length)
             setTodos(
                 todos.map((todo) => {
                     if (todo.id === id) {
@@ -55,12 +78,16 @@ export const TodosProvider = ({ children }) => {
                     return todo;
                 })
             );
+        setLoading(false);
     };
 
     const getIndividualTodoFn = async (id) => {
+        setLoading(true);
+        handleToken();
         const [data, error] = await getIndividualTodo(token, id);
-        if (data) return data;
+        if (data.length) return data;
         if (error) return error;
+        setLoading(false);
         return null;
     };
 

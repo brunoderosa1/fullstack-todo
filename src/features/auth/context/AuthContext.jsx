@@ -19,6 +19,8 @@ export const AuthContext = createContext({
     signUp: () => {},
     getCurrentUser: () => {},
     getAuthToken: () => {},
+    token: null,
+    userRef: null,
 });
 
 export const AuthProvider = ({ children }) => {
@@ -47,6 +49,7 @@ export const AuthProvider = ({ children }) => {
                     localStorage.getItem(localAuthKey)
                 ).stsTokenManager;
                 const token = tokenObject.accessToken;
+                console.log("tokenManager ~ token:", token);
 
                 if (token) {
                     setToken(token); // Assuming setToken function is defined
@@ -62,8 +65,6 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (error) {
             }
-        } else {
-            
         }
 
         // Consider returning a value here based on success/failure and token (if successful)
@@ -139,6 +140,7 @@ export const AuthProvider = ({ children }) => {
         await auth.currentUser
             ?.getIdToken(true)
             .then((token) => {
+                console.log(".then ~ token:", token);
                 setToken(token);
                 return token;
             })

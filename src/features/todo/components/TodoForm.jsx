@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Form from "../../../components/Form";
 import useTodo from "../../../features/todo/hooks/useTodo";
 import useToast from "../../../features/toast/hooks/useToast";
@@ -9,6 +9,7 @@ export default function TodoForm() {
     const [description, setDescription] = useState("");
 
     const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
 
     const { createTodoFn } = useTodo();
     const { addToast } = useToast();
@@ -43,6 +44,7 @@ export default function TodoForm() {
             const [data, error] = await createTodoFn({ title, description });
             if (data) addToast("Todo created successfully", "success", 3000);
             if (error) addToast(error.message, "error", 3000);
+            navigate('/') 
             setTitle("");
             setDescription("");
             setErrors([]);

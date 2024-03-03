@@ -11,15 +11,15 @@ export default function AuthForm({ isSignUp }) {
 
     const label = isSignUp ? "Sign Up" : "Sign In";
 
-    const { login, signUp, loading, userRef, user } = useAuth();
+    const { login, signUp, loading, userRef, user, token } = useAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user) {
+        if (user && token) {
             return navigate("/");
         }
-    }, [user]);
+    }, [user, token]);
 
     const inputs = [
         {
