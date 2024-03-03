@@ -16,6 +16,7 @@ export const TodosContext = createContext({
     deleteTodoFn: () => {},
     updateTodoFn: () => {},
     getIndividualTodoFn: () => {},
+    getTodos: () => {},
 });
 
 export const TodosProvider = ({ children }) => {
@@ -25,10 +26,6 @@ export const TodosProvider = ({ children }) => {
 
     const { token, getAuthToken } = useAuth();
     const { addToast } = useToast();
-
-    useEffect(() => {
-        console.log(todos);
-    }, [todos]);
 
     const handleToken = () => {
         if (!token) {
@@ -41,7 +38,8 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         const [data, error] = await getAllTodos(token);
-        if (data.length) setTodos(data);
+        console.log("getAllTodosFn ~ data:", data);
+        if (data.data.length) setTodos(data.data);
         if (error) setError(error);
         setLoading(false);
     };
@@ -91,6 +89,8 @@ export const TodosProvider = ({ children }) => {
         return null;
     };
 
+    const getTodos = () => todos
+
     const value = {
         todos,
         loading,
@@ -99,6 +99,7 @@ export const TodosProvider = ({ children }) => {
         deleteTodoFn,
         updateTodoFn,
         getIndividualTodoFn,
+        getTodos
     };
 
     return (

@@ -12,7 +12,8 @@ export default function useTodo() {
         deleteTodoFn,
         updateTodoFn,
         getAllTodosFn,
-        getIndividualTodoFn
+        getIndividualTodoFn,
+        getTodos
     } = useContext(TodosContext);
 
     return {
@@ -23,6 +24,7 @@ export default function useTodo() {
         deleteTodoFn,
         updateTodoFn,
         getAllTodosFn,
-        getIndividualTodoFn
+        getIndividualTodoFn,
+        getTodos
     };
 }

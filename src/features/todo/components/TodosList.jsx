@@ -13,15 +13,13 @@ import Loader from "../../../components/Loader";
  * over the `todos` array and renders a `Todo` component for each todo item.
  */
 export default function TodosList() {
-    const { todos, getAllTodosFn, loading } = useTodo();
-    console.log("TodosList ~ todos:", todos);
+    const { todos, getAllTodosFn, loading, getTodos } = useTodo();
     const { token } = useAuth();
 
     useEffect(() => {
         const fetchTodos = async () => {
             await getAllTodosFn();
         };
-        console.log("TodosList ~ token:", token);
         if (token) fetchTodos();
     }, []);
 
@@ -39,7 +37,7 @@ export default function TodosList() {
                         ></Link>
                     </div>
                     <hr className="w-full mx-6" />
-                    {todos.length ? (
+                    {getTodos().length ? (
                         todos.map((todo) => (
                             <Todo
                                 key={todo.id}

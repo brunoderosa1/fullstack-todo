@@ -11,7 +11,6 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
  * element is an error object if there is an error, or `null` if the operation is successful.
  */
 export default async function createTodo(token, todo) {
-    console.log("todo:", todo);
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
         return await fetch("http://localhost:3000" + "/todos/create", {
