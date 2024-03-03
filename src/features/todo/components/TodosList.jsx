@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import useTodo from "../hooks/useTodo";
-import Todo from "./Todo";
 import { Link } from "react-router-dom";
+
+import useTodo from "../hooks/useTodo";
+import useAuth from "../../auth/hooks/useAuth";
+import Todo from "./Todo";
 
 /**
  * The TodosList component renders a list of todos with a title and a button to add a new todo.
@@ -11,10 +13,14 @@ import { Link } from "react-router-dom";
  */
 export default function TodosList() {
     const { todos, getAllTodosFn, loading } = useTodo();
+    const { token } = useAuth();
 
-    // useEffect(() => {  
-    //     getAllTodosFn();
-    // }, []);
+    useEffect(() => {  
+        const fetchTodos = async () => {
+            await getAllTodosFn();
+        };
+        if (token) fetchTodos();
+    }, [token]);
 
     return (
         <>

@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { TodosContext } from "../context/TodosContext";
 
-export default async function useTodo() {
+export default function useTodo() {
 
     const {
         todos,

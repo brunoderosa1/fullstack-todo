@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Form from "../../../components/Form";
@@ -11,9 +11,15 @@ export default function AuthForm({ isSignUp }) {
 
     const label = isSignUp ? "Sign Up" : "Sign In";
 
-    const { login, signUp } = useAuth();
+    const { login, signUp, loading, userRef, user } = useAuth();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            return navigate("/");
+        }
+    }, [user]);
 
     const inputs = [
         {
@@ -67,13 +73,12 @@ export default function AuthForm({ isSignUp }) {
 
         if (!hasErrors && isSignUp) {
             const data = await signUp(email, password);
-            navigate("/");
+            if (data) navigate("/");
         }
 
         if (!hasErrors && !isSignUp) {
             const data = await login(email, password);
-            console.log("onSubmit ~ data:", data);
-            navigate("/");
+            if (data) navigate("/");
         }
 
         setEmail("");

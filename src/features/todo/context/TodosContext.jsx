@@ -22,19 +22,8 @@ export const TodosProvider = ({ children }) => {
     const [todos, setTodos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [token, setToken] = useState(null);
-    console.log("TodosProvider ~ token:", token);
 
-    const { getAuthToken } = useAuth();
-    
-    const getToken = async () => await getAuthToken()
-        .then((token) => setToken(token))
-        .catch((error) => setError(error));
-
-    useEffect(() => {
-        getToken();
-    }, []);
-    
+    const { token } = useAuth();
 
     const getAllTodosFn = async () => {
         const [data, error] = await getAllTodos(token);

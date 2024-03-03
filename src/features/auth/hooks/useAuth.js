@@ -3,24 +3,25 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function useAuth() {
-
     const {
-        currentUser,
+        user,
         loading,
         login,
         logout,
         signUp,
         getCurrentUser,
         getAuthToken,
+        userRef,
     } = useContext(AuthContext);
 
     return {
-        currentUser,
+        user,
         loading,
         login,
         logout,
         signUp,
         getCurrentUser,
         getAuthToken,
+        userRef
     };
 }
