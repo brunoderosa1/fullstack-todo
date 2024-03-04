@@ -11,19 +11,21 @@ export default function TodoForm() {
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
-    const { createTodoFn } = useTodo();
+    const { createTodoFn, getTodos, updateTodoFn } = useTodo();
     const { addToast } = useToast();
 
-    const { edit, id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
-        if (edit) {
+        if (id) {
             // TODO: Get from database
-            console.log("Get from database");
-            setTitle("Title");
-            setDescription("Description");
+            const todo = getTodos().filter(
+                (todo) => todo.id === parseInt(id)
+            )[0];
+            setTitle(todo?.title);
+            setDescription(todo?.description);
         }
-    }, [edit, id])
+    }, []);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -40,11 +42,26 @@ export default function TodoForm() {
             hasErrors = true;
         }
 
-        if (!hasErrors) {
+        if (!hasErrors && !id) {
             const [data, error] = await createTodoFn({ title, description });
-            if (data) addToast("Todo created successfully", "success", 3000);
+            console.log("onSubmit ~ data:", data);
+            if (data?.length)
+                addToast("Todo created successfully", "success", 3000);
             if (error) addToast(error.message, "error", 3000);
-            navigate('/') 
+            navigate("/");
+            setTitle("");
+            setDescription("");
+            setErrors([]);
+        }
+
+        if (!hasErrors && id) {
+            const [data, error] = await updateTodoFn(parseInt(id), {
+                title,
+                description,
+            });
+            if (data) addToast("Todo updated successfully", "success", 3000);
+            if (error) addToast(error.message, "error", 3000);
+            navigate("/");
             setTitle("");
             setDescription("");
             setErrors([]);
@@ -83,10 +100,10 @@ export default function TodoForm() {
 
     return (
         <>
-            <Form 
-                formTitle={edit ? "Edit Todo" : "Add Todo"} 
+            <Form
+                formTitle={id ? "Edit Todo" : "Add Todo"}
                 onSubmit={onSubmit}
-                submitBtnLabel={edit ? "Edit" : "Add"}
+                submitBtnLabel={id ? "Edit" : "Add"}
                 inputs={inputs}
                 disableSubmit={!title || !description}
             />

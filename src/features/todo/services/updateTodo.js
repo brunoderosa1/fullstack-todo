@@ -13,7 +13,7 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
 export default async function updateTodo(token, todo) {
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
-        return await fetch(import.meta.BACKEND_URL || process.env.BACKEND_URL + "/api/todos/" + todo.id, {
+        return await fetch('http://localhost:3000' + "/todos/" + todo.id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -22,6 +22,7 @@ export default async function updateTodo(token, todo) {
             body: JSON.stringify(todo),
         });
     });
+    
     if (error) {
         return [null, error];
     }

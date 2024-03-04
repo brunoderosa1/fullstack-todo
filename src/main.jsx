@@ -60,7 +60,7 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "/todo/:id",
-                                element: <TodoPage />,
+                                element: <TodoForm />,
                             },
                         ],
                     },
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
 document
     .getElementsByTagName("body")
     .item(0)
-    .setAttribute("class", "w-100vw h-100vh m-0");
+    .setAttribute("class", "min-w-100vw min-h-100vh m-0");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>

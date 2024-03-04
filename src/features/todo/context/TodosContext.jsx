@@ -38,55 +38,60 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         const [data, error] = await getAllTodos(token);
-        console.log("getAllTodosFn ~ data:", data);
-        if (data.data.length) setTodos(data.data);
+        if (data?.data?.length) setTodos(data.data);
         if (error) setError(error);
         setLoading(false);
+        return [data, error];
     };
 
     const createTodoFn = async (todo) => {
         setLoading(true);
         handleToken();
         const [data, error] = await TryCatch(createTodo(token, todo));
-        if (data.length) setTodos([...todos, data]);
+        if (data?.data?.length) setTodos([...todos, data]);
         if (error) setError(error);
         setLoading(false);
+        return [data, error];
     };
 
     const deleteTodoFn = async (id) => {
         setLoading(true);
         handleToken();
         const [data, error] = await deleteTodo(token, id);
-        if (data.length) setTodos(todos.filter((todo) => todo.id !== id));
+        if (data?.length) setTodos(todos.filter((todo) => todo.id !== id));
         if (error) setError(error);
         setLoading(false);
+        return [data, error];
     };
 
-    const updateTodoFn = async (id, updatedTodo) => {
+    const updateTodoFn = async (id, todo) => {
         setLoading(true);
         handleToken();
-        const [data, error] = await updateTodo(token, updatedTodo);
+        const [updatedTodo, error] = await updateTodo(token, { id, ...todo});
+        const data = updatedTodo ?? null;
         if (error) setError(error);
-        if (data.length)
+        if (updatedTodo?.length)
             setTodos(
                 todos.map((todo) => {
                     if (todo.id === id) {
-                        return { ...todo, ...data };
+                        return { ...todo, ...updatedTodo };
                     }
                     return todo;
                 })
             );
         setLoading(false);
+        
+        return [ data, error ];
     };
 
     const getIndividualTodoFn = async (id) => {
         setLoading(true);
         handleToken();
         const [data, error] = await getIndividualTodo(token, id);
-        if (data.length) return data;
+        if (data?.length) return data;
         if (error) return error;
         setLoading(false);
-        return null;
+        return [data, error];
     };
 
     const getTodos = () => todos
