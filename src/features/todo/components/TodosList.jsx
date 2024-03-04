@@ -28,7 +28,7 @@ export default function TodosList() {
             {loading ? (
                 <Loader />
             ) : (
-                <div className="flex flex-col w-108 h-auto  p-3 rounded justify-center items-center bg-gray-200 stdAnimation">
+                <div className="flex flex-col w-108 h-auto m-8 p-3 rounded justify-center  items-center bg-gray-200 stdAnimation">
                     <div className="flex flex-row justify-between box-content items-center px-4 py-2 h-10 w-full mx-4 font-sans">
                         <h1>Todos</h1>
                         <Link

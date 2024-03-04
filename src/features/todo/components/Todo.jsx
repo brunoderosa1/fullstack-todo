@@ -24,7 +24,7 @@ export default function Todo({
                     <h3 className="font-bold font-600">{title}</h3>
                     <p className="font-400">{description}</p>
                 </div>
-                <div className="flex flex-col text-3xl justify-around h-full box-border">
+                <div className="flex flex-col text-3xl justify-around min-h-100% box-border gap-4">
                     <div
                         className="i-mdi:pencil cursor-pointer rounded-full "
                         onClick={() => navigate("/todo/" + id)}
