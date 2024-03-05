@@ -37,7 +37,7 @@ export default function TodosList() {
                         ></Link>
                     </div>
                     <hr className="w-full mx-6" />
-                    {getTodos().length ? (
+                    {todos.length ? (
                         todos.map((todo) => (
                             <Todo
                                 key={todo.id}

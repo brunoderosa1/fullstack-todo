@@ -51,11 +51,11 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         try {
-            const [data, error] = await TryCatch(createTodo(token, todo));
-            addToast('Todo created!', 'success', 3000)
-            setTodos([...todos, data]);
+            const [data, error]= await createTodo(token, todo);
+            addToast("Todo created!", "success", 3000);
+            setTodos([...todos, data.data]);
         } catch (error) {
-            addToast("Todo couldn't be created", 'error', 3000)
+            addToast("Todo couldn't be created", "error", 3000);
             setError(error);
         } finally {
             setLoading(false);
@@ -67,10 +67,10 @@ export const TodosProvider = ({ children }) => {
         handleToken();
         try {
             await deleteTodo(token, id);
-            addToast('Todo deleted successfully', 'success', 3000)
+            addToast("Todo deleted successfully", "success", 3000);
             setTodos(todos.filter((todo) => todo.id !== id));
         } catch (error) {
-            addToast("Todo couldn't be created", 'error', 3000)
+            addToast("Todo couldn't be created", "error", 3000);
             setError(error);
         } finally {
             setLoading(false);
@@ -81,18 +81,18 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         try {
-            const [updatedTodo, error] = await TryCatch(updateTodo(token, { id, ...todo }));
-            addToast('Todo updated!', 'success', 3000)
+            const [updatedTodo, error] = await updateTodo(token, { id, ...todo });
+            addToast("Todo updated!", "success", 3000);
             setTodos(
                 todos.map((todo) => {
                     if (todo.id === id) {
-                        return { ...todo, ...updatedTodo };
+                        return { ...todo, ...updatedTodo.data };
                     }
                     return todo;
                 })
             );
         } catch (error) {
-            addToast("Todo couldn't be updated.", 'error', 3000)
+            addToast("Todo couldn't be updated.", "error", 3000);
             setError(error);
         } finally {
             setLoading(false);
