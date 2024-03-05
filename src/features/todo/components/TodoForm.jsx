@@ -12,7 +12,6 @@ export default function TodoForm() {
     const navigate = useNavigate();
 
     const { createTodoFn, getTodos, updateTodoFn } = useTodo();
-    const { addToast } = useToast();
 
     const { id } = useParams();
 
@@ -43,11 +42,7 @@ export default function TodoForm() {
         }
 
         if (!hasErrors && !id) {
-            const [data, error] = await createTodoFn({ title, description });
-            console.log("onSubmit ~ data:", data);
-            if (data?.length)
-                addToast("Todo created successfully", "success", 3000);
-            if (error) addToast(error.message, "error", 3000);
+            await createTodoFn({ title, description });
             navigate("/");
             setTitle("");
             setDescription("");
@@ -55,12 +50,10 @@ export default function TodoForm() {
         }
 
         if (!hasErrors && id) {
-            const [data, error] = await updateTodoFn(parseInt(id), {
+            await updateTodoFn(parseInt(id), {
                 title,
                 description,
             });
-            if (data) addToast("Todo updated successfully", "success", 3000);
-            if (error) addToast(error.message, "error", 3000);
             navigate("/");
             setTitle("");
             setDescription("");

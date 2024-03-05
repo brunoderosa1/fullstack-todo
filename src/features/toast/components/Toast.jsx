@@ -10,7 +10,7 @@ import useToast from "../hooks/useToast";
  * component. The toast message will be displayed with an animation when it appears and disappears.
  */
 export default function Toast({ toast }) {
-    const { message = "Your message", type = "info", duration = 2000 } = toast;
+    const { message = "Your message", type = "info", duration = 3000 } = toast;
 
     const { removeToast } = useToast();
 

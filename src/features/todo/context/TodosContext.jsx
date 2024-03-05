@@ -37,40 +37,52 @@ export const TodosProvider = ({ children }) => {
     const getAllTodosFn = async () => {
         setLoading(true);
         handleToken();
-        const [data, error] = await getAllTodos(token);
-        if (data?.data?.length) setTodos(data.data);
-        if (error) setError(error);
-        setLoading(false);
-        return [data, error];
+        try {
+            const [data, error] = await getAllTodos(token);
+            setTodos(data.data);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const createTodoFn = async (todo) => {
         setLoading(true);
         handleToken();
-        const [data, error] = await TryCatch(createTodo(token, todo));
-        if (data?.data?.length) setTodos([...todos, data]);
-        if (error) setError(error);
-        setLoading(false);
-        return [data, error];
+        try {
+            const [data, error] = await TryCatch(createTodo(token, todo));
+            addToast('Todo created!', 'success', 3000)
+            setTodos([...todos, data]);
+        } catch (error) {
+            addToast("Todo couldn't be created", 'error', 3000)
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const deleteTodoFn = async (id) => {
         setLoading(true);
         handleToken();
-        const [data, error] = await deleteTodo(token, id);
-        if (data?.length) setTodos(todos.filter((todo) => todo.id !== id));
-        if (error) setError(error);
-        setLoading(false);
-        return [data, error];
+        try {
+            await deleteTodo(token, id);
+            addToast('Todo deleted successfully', 'success', 3000)
+            setTodos(todos.filter((todo) => todo.id !== id));
+        } catch (error) {
+            addToast("Todo couldn't be created", 'error', 3000)
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const updateTodoFn = async (id, todo) => {
         setLoading(true);
         handleToken();
-        const [updatedTodo, error] = await updateTodo(token, { id, ...todo});
-        const data = updatedTodo ?? null;
-        if (error) setError(error);
-        if (updatedTodo?.length)
+        try {
+            const [updatedTodo, error] = await TryCatch(updateTodo(token, { id, ...todo }));
+            addToast('Todo updated!', 'success', 3000)
             setTodos(
                 todos.map((todo) => {
                     if (todo.id === id) {
@@ -79,9 +91,12 @@ export const TodosProvider = ({ children }) => {
                     return todo;
                 })
             );
-        setLoading(false);
-        
-        return [ data, error ];
+        } catch (error) {
+            addToast("Todo couldn't be updated.", 'error', 3000)
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const getIndividualTodoFn = async (id) => {
@@ -94,7 +109,7 @@ export const TodosProvider = ({ children }) => {
         return [data, error];
     };
 
-    const getTodos = () => todos
+    const getTodos = () => todos;
 
     const value = {
         todos,
@@ -104,7 +119,7 @@ export const TodosProvider = ({ children }) => {
         deleteTodoFn,
         updateTodoFn,
         getIndividualTodoFn,
-        getTodos
+        getTodos,
     };
 
     return (
