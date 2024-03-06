@@ -41,6 +41,7 @@ export const TodosProvider = ({ children }) => {
             const [data, error] = await getAllTodos(token);
             setTodos(data.data);
         } catch (error) {
+            console.log("getAllTodosFn ~ error:", error);
             setError(error);
         } finally {
             setLoading(false);
@@ -51,7 +52,7 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         try {
-            const [data, error]= await createTodo(token, todo);
+            const [data, error] = await createTodo(token, todo);
             addToast("Todo created!", "success", 3000);
             setTodos([...todos, data.data]);
         } catch (error) {
@@ -81,7 +82,10 @@ export const TodosProvider = ({ children }) => {
         setLoading(true);
         handleToken();
         try {
-            const [updatedTodo, error] = await updateTodo(token, { id, ...todo });
+            const [updatedTodo, error] = await updateTodo(token, {
+                id,
+                ...todo,
+            });
             addToast("Todo updated!", "success", 3000);
             setTodos(
                 todos.map((todo) => {
