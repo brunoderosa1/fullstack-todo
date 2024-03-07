@@ -12,7 +12,7 @@ import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: `${
-        import.meta.env.VITE_GOOGLE_API_KEY || import.meta.env.GOOGLE_API_KEY
+        import.meta.env.VITE_GOOGLE_API_KEY
     }`,
 
     authDomain: "sample-project-demo-414423.firebaseapp.com",

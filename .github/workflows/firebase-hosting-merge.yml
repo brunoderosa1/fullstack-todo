@@ -7,8 +7,8 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 env:
-  BACKEND_URL: ${{ secrets.BACKEND_URL }}
-  GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+  VITE_BACKEND_URL: ${{ secrets.BACKEND_URL }}
+  VITE_GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
