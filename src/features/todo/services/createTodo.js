@@ -13,14 +13,19 @@ import { TryCatch } from "../../../utils/functions/TryCatch.js";
 export default async function createTodo(token, todo) {
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
-        return await fetch(`${import.meta.env.VITE_BACKEND_URL || process.env.BACKEND_URL}/todos/create`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify(todo),
-        });
+        return await fetch(
+            `${
+                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
+            }/todos/create`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(todo),
+            }
+        );
     });
     if (error) {
         return [null, error];

@@ -15,7 +15,7 @@ export default async function updateTodo(token, todo) {
         // eslint-disable-next-line no-undef
         return await fetch(
             `${
-                import.meta.env.VITE_BACKEND_URL || process.env.BACKEND_URL
+                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
             }/todos/` + todo.id,
             {
                 method: "PUT",

@@ -11,19 +11,19 @@ import { browserLocalPersistence, getAuth, setPersistence } from "firebase/auth"
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
+    apiKey: `${
+        import.meta.env.VITE_GOOGLE_API_KEY || import.meta.env.GOOGLE_API_KEY
+    }`,
 
-  apiKey: `${import.meta.env.VITE_GOOGLE_API_KEY || process.env.GOOGLE_API_KEY}`,
+    authDomain: "sample-project-demo-414423.firebaseapp.com",
 
-  authDomain: "sample-project-demo-414423.firebaseapp.com",
+    projectId: "sample-project-demo-414423",
 
-  projectId: "sample-project-demo-414423",
+    storageBucket: "sample-project-demo-414423.appspot.com",
 
-  storageBucket: "sample-project-demo-414423.appspot.com",
+    messagingSenderId: "722318238410",
 
-  messagingSenderId: "722318238410",
-
-  appId: "1:722318238410:web:a8682ce0a5fd6443054a33"
-
+    appId: "1:722318238410:web:a8682ce0a5fd6443054a33",
 };
 
 

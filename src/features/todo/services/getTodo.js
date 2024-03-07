@@ -5,7 +5,7 @@ export default async function getIndividualTodo(token, id) {
         // eslint-disable-next-line no-undef
         return await fetch(
             `${
-                import.meta.env.VITE_BACKEND_URL || process.env.BACKEND_URL
+                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
             }/todos/` + id,
             {
                 method: "GET",

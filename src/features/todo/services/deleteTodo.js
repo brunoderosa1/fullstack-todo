@@ -15,7 +15,9 @@ export default async function deleteTodo(token, id) {
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
         return await fetch(
-            `${import.meta.env.VITE_BACKEND_URL || process.env.BACKEND_URL}/todos/` + id,
+            `${
+                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
+            }/todos/` + id,
             {
                 method: "DELETE",
                 headers: {
