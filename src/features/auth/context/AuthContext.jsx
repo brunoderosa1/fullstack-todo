@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef } from "react";
+import React, { createContext, useState, useRef, useEffect } from "react";
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
     onAuthStateChanged,
     setPersistence,
     browserLocalPersistence,
+    
 } from "firebase/auth";
 
 import { auth } from "../../../lib/firebase.js";
@@ -21,6 +22,7 @@ export const AuthContext = createContext({
     getAuthToken: () => {},
     token: null,
     userRef: null,
+    getLoading: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -62,8 +64,7 @@ export const AuthProvider = ({ children }) => {
                         getAuthToken();
                     }
                 }
-            } catch (error) {
-            }
+            } catch (error) {}
         }
 
         // Consider returning a value here based on success/failure and token (if successful)
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         });
         tokenManager();
-    }, []);
+    }, [user]);
 
     const login = async (email, password) => {
         setLoading(true);
@@ -104,17 +105,16 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         setLoading(true);
         signOut(auth)
-            .then(() => {
+            .then((state) => {
+                console.log(".then ~ state:", state);
                 setUser(null);
                 addToast("Logged out successfully!", "success", 3000);
-                return;
+                setLoading(false);
             })
             .catch((error) => {
+                console.log("logout ~ error:", error);
                 addToast("Logout failed.", "error", 3000);
             })
-            .finally(() => {
-                setLoading(false);
-            });
     };
 
     const signUp = async (email, password) => {
@@ -130,7 +130,7 @@ export const AuthProvider = ({ children }) => {
                 addToast("Registration failed.", "error", 3000);
             })
             .finally(() => {
-                setLoading(false);
+                return setLoading(false);
             });
     };
 
@@ -142,8 +142,7 @@ export const AuthProvider = ({ children }) => {
                 setToken(token);
                 return token;
             })
-            .catch((error) => {
-            })
+            .catch((error) => {})
             .finally(() => {
                 setLoading(false);
             });
@@ -151,6 +150,10 @@ export const AuthProvider = ({ children }) => {
 
     const getCurrentUser = () => {
         return auth.currentUser;
+    };
+
+    const getLoading = () => {
+        return loading;
     };
 
     const value = {
@@ -163,6 +166,7 @@ export const AuthProvider = ({ children }) => {
         signUp,
         token,
         userRef,
+        getLoading,
     };
 
     return (

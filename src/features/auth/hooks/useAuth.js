@@ -12,7 +12,8 @@ export default function useAuth() {
         getCurrentUser,
         getAuthToken,
         userRef,
-        token
+        token,
+        getLoading
     } = useContext(AuthContext);
 
     return {
@@ -24,6 +25,7 @@ export default function useAuth() {
         getCurrentUser,
         getAuthToken,
         userRef,
-        token
+        token,
+        getLoading
     };
 }
