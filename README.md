@@ -1,4 +1,4 @@
-# Overengineerd todo app
+# Overengineered todo app
 
 This is a tech demo for the sake of demonstration
 
