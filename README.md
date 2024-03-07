@@ -20,3 +20,5 @@ Tech stack:
     Vitest, Docker, GitHub Actions
 
   Backend repo: https://github.com/brunoderosa1/fullstack-todo-backend
+
+  [Live demo](https://sample-project-demo-414423--pr2-develop-4p802imm.web.app)
