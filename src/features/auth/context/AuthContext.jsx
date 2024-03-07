@@ -6,7 +6,6 @@ import {
     onAuthStateChanged,
     setPersistence,
     browserLocalPersistence,
-    
 } from "firebase/auth";
 
 import { auth } from "../../../lib/firebase.js";
@@ -103,18 +102,16 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = async () => {
-        setLoading(true);
         signOut(auth)
             .then((state) => {
                 console.log(".then ~ state:", state);
                 setUser(null);
                 addToast("Logged out successfully!", "success", 3000);
-                setLoading(false);
             })
             .catch((error) => {
                 console.log("logout ~ error:", error);
                 addToast("Logout failed.", "error", 3000);
-            })
+            });
     };
 
     const signUp = async (email, password) => {
@@ -135,11 +132,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     const getAuthToken = async () => {
-        setLoading(true);
+        // setLoading(true);
         await auth.currentUser
             ?.getIdToken(true)
             .then((token) => {
                 setToken(token);
+                // setLoading(false);
                 return token;
             })
             .catch((error) => {})

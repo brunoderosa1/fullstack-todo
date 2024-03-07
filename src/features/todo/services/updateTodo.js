@@ -14,9 +14,7 @@ export default async function updateTodo(token, todo) {
     const [data, error] = await TryCatch(async () => {
         // eslint-disable-next-line no-undef
         return await fetch(
-            `${
-                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
-            }/todos/` + todo.id,
+            `${import.meta.env.VITE_BACKEND_URL}/todos/` + todo.id,
             {
                 method: "PUT",
                 headers: {
@@ -27,7 +25,7 @@ export default async function updateTodo(token, todo) {
             }
         );
     });
-    
+
     if (error) {
         return [null, error];
     }

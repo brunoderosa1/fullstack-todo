@@ -16,7 +16,7 @@ export default async function getAllTodos(token) {
         // eslint-disable-next-line no-undef
         return await fetch(
             `${
-                import.meta.env.VITE_BACKEND_URL || import.meta.env.BACKEND_URL
+                import.meta.env.VITE_BACKEND_URL
             }/todos/all`,
             {
                 method: "GET",
