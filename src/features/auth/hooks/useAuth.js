@@ -1,36 +1,31 @@
-import { useState, useEffect } from "react";
-import { auth } from "../../../lib/firebase.js";
-import {
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut,
-} from "firebase/auth";
+import { useContext } from "react";
 
-export function useAuth() {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+import { AuthContext } from "../context/AuthContext.jsx";
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setCurrentUser(user);
-            setLoading(false);
-        });
+export default function useAuth() {
+    const {
+        user,
+        loading,
+        login,
+        logout,
+        signUp,
+        getCurrentUser,
+        getAuthToken,
+        userRef,
+        token,
+        getLoading
+    } = useContext(AuthContext);
 
-        return unsubscribe;
-    }, []);
-
-    const login = async (email, password) => {
-        try {
-            const user = await signInWithEmailAndPassword(email, password);
-            return user;
-        } catch (error) {
-            console.log(error);
-        }
+    return {
+        user,
+        loading,
+        login,
+        logout,
+        signUp,
+        getCurrentUser,
+        getAuthToken,
+        userRef,
+        token,
+        getLoading
     };
-
-    const logout = async () => {
-        return await signOut();
-    };
-
-    return { currentUser, loading, login, logout };
 }

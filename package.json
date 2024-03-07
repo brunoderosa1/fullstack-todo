@@ -11,6 +11,7 @@
     "test": "vitest dev"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase": "^10.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -18,16 +19,20 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.1.64",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@unocss/preset-icons": "^0.58.5",
     "@unocss/preset-uno": "^0.58.5",
     "@unocss/transformer-directives": "^0.58.5",
     "@vitejs/plugin-react": "^4.2.1",
+    "animated-unocss": "^0.0.6",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "jsdom": "^24.0.0",
     "unocss": "^0.58.5",
     "vite": "^5.1.4",
     "vitest": "^1.3.1"

@@ -1,19 +1,10 @@
-import toastManagerInstance from "../../../lib/ToastManager";
-// import { useState, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from "react";
 
-export default function useToast(toast) {
-    toast = { type: "success", message: "Success", duration: 2500 };
-    const toastManager = toastManagerInstance;
-    // toastManager.enqueue(toast)
-    // console.log("🚀 ~ useToast ~ toastManager:", toastManager);
+import { ToastContext } from "../context/ToastContext";
 
-    const getQueue = () => {
-        return toastManager.getQueue();
-    };
+export default function useToast() {
+    const { queue, addToast, removeToast } = useContext(ToastContext);
 
-    const setToast = (toast) => {
-        return toastManager.enqueue(toast);
-    };
-
-    return { getQueue, setToast };
+    return { queue, addToast, removeToast };
 }

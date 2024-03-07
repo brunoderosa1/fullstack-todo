@@ -1,14 +1,21 @@
 import React from "react";
-import ToastManager from "../lib/ToastManager";
-import Notification from "../components/Notification";
+import { Outlet } from "react-router-dom";
 
-export default function ToastManagerLayout({ children }) {
+import Loader from "../components/Loader";
+import ToastDisplay from "../features/toast/components/ToastDisplay";
+import useAuth from "../features/auth/hooks/useAuth";
 
-  const toastManager = ToastManager.getInstance();
+export default function ToastManagerLayout() {
 
-  return (
-    <>
-      <div className="fixed bottom-5 right-5" >{  }</div>
-    </>
-  );
+    const { getLoading } = useAuth();
+
+    return (
+        <>
+            <main className="main">
+                <Outlet  />
+                <ToastDisplay className="bg-green-200 w-40 h-40" />
+                { getLoading() && <Loader /> }
+            </main>
+        </>
+    );
 }

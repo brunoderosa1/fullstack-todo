@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import TodosListPage from "./features/todo/components/TodosList";
 
 function App() {
     return (
         <>
+            <TodosListPage />
         </>
     );
 }
