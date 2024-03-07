@@ -8,8 +8,8 @@ permissions:
     contents: read
     pull-requests: write
 env:
-  BACKEND_URL: ${{ secrets.BACKEND_URL }}
-  GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+  VITE_BACKEND_URL: ${{ secrets.BACKEND_URL }}
+  VITE_GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 jobs:
     build_and_preview:
         if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
