@@ -1,8 +1,22 @@
-# React + Vite
+# Overengineerd todo app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a tech demo for the sake of demonstration
 
-Currently, two official plugins are available:
+Tech stack:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  Frontend:
+    Vite, React, Tailwind
+
+  Backend:
+    Node, Express, Firebase Auth, Prisma
+
+  DB:
+    PostgreSQL
+
+  Deploy:
+    Firebase Hosting (Frontend - free certificates). GCP: IAM, Secret Manager, Compute Engine (DB), Cloud Run (Backend), Cloud Storage, Artifact Registry, Container Registry
+
+  Tools:
+    Vitest, Docker, GitHub Actions
+
+  Backend repo: https://github.com/brunoderosa1/fullstack-todo-backend
